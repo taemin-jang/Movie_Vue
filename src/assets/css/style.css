@@ -5208,10 +5208,11 @@ main .col-md-12:last-of-type .movie-list-2 {
 }
 
 .movie-detail-intro ul.movie-subtext li:after,
+.category span:after,
 .movie-detail-intro2 ul.movie-subtext li:after {
   content: "|";
-  padding-left: 10px;
-  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .movie-detail-intro ul.movie-subtext li:last-child:after,

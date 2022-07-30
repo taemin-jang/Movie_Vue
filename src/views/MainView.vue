@@ -1,5 +1,10 @@
 <template>
   <div>
+    <VideoView
+      :display="videoShowValue"
+      @close="videoClose"
+      @show="videoShow"
+    />
     <!-- =============== START OF PRELOADER =============== -->
     <!-- <div class="loading">
       <div class="loading-inner">
@@ -9,7 +14,7 @@
       </div>
     </div> -->
     <!-- =============== END OF PRELOADER =============== -->
-
+    <SignView :display="modalShowValue" @close="modalClose" />
     <!-- =============== START OF RESPONSIVE - MAIN NAV =============== -->
     <nav id="main-mobile-nav"></nav>
     <!-- =============== END OF RESPONSIVE - MAIN NAV =============== -->
@@ -18,7 +23,7 @@
     <div class="wrapper">
       <!-- =============== START OF HEADER NAVIGATION =============== -->
       <!-- Insert the class "sticky" in the header if you want a sticky header -->
-      <HeaderView />
+      <HeaderView @show="modalShow" />
       <!-- =============== START OF SLIDER REVOLUTION SECTION =============== -->
       <SliderView />
       <!-- =============== START OF SLIDER REVOLUTION SECTION =============== -->
@@ -84,10 +89,10 @@
                       <div class="inner">
                         <h2 class="title">{{ item.title }}</h2>
 
-                        <a
-                          href="movie-detail.html"
+                        <router-link
+                          :to="`/detail/${item.id}`"
                           class="btn btn-main btn-effect"
-                          >details</a
+                          >details</router-link
                         >
                       </div>
                     </div>
@@ -172,10 +177,7 @@
                     <div class="inner">
                       <!-- Play Button -->
                       <div class="play-btn">
-                        <a
-                          href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                          class="play-video"
-                        >
+                        <a href="#" class="play-video" @click="videoShow">
                           <i class="fa fa-play"></i>
                         </a>
                       </div>
@@ -207,6 +209,7 @@
                       <a
                         href="movie-detail.html"
                         class="btn btn-main btn-effect"
+                        style=""
                         >details</a
                       >
                     </div>
@@ -257,10 +260,7 @@
 
                 <!-- Start of Buttons -->
                 <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
+                  <a href="#" class="play-video" @click="videoShow">
                     <i class="fa fa-play"></i>
                   </a>
                 </div>
@@ -302,10 +302,7 @@
 
                 <!-- Start of Buttons -->
                 <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
+                  <a href="#" class="play-video" @click="videoShow">
                     <i class="fa fa-play"></i>
                   </a>
                 </div>
@@ -339,10 +336,7 @@
 
                 <!-- Start of Buttons -->
                 <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
+                  <a href="#" class="play-video" @click="videoShow">
                     <i class="fa fa-play"></i>
                   </a>
                 </div>
@@ -704,183 +698,6 @@
       </form>
     </div>
     <!-- =============== END OF GENERAL SEARCH WRAPPER =============== -->
-
-    <!-- =============== START OF LOGIN & REGISTER POPUP =============== -->
-    <div
-      id="login-register-popup"
-      class="small-dialog zoom-anim-dialog mfp-hide"
-    >
-      <!-- ===== Start of Signin wrapper ===== -->
-      <div class="signin-wrapper">
-        <div class="small-dialog-headline">
-          <h4 class="text-center">Sign in</h4>
-        </div>
-
-        <div class="small-dialog-content">
-          <!-- Start of Login form -->
-          <form id="cariera_login" method="post">
-            <p class="status"></p>
-
-            <div class="form-group">
-              <label for="username">Username or Email *</label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                placeholder="Your Username or Email *"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="password">Password *</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                placeholder="Your Password *"
-              />
-            </div>
-
-            <div class="form-group">
-              <div class="checkbox pad-bottom-10">
-                <input
-                  id="check1"
-                  type="checkbox"
-                  name="remember"
-                  value="yes"
-                />
-                <label for="check1">Keep me signed in</label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <input
-                type="submit"
-                value="Sign in"
-                class="btn btn-main btn-effect nomargin"
-              />
-            </div>
-          </form>
-          <!-- End of Login form -->
-
-          <div class="bottom-links">
-            <span>
-              Not a member?
-              <a class="signUpClick">Sign up</a>
-            </span>
-            <a class="forgetPasswordClick pull-right">Forgot Password</a>
-          </div>
-        </div>
-      </div>
-      <!-- ===== End of Signin wrapper ===== -->
-
-      <!-- ===== Start of Signup wrapper ===== -->
-      <div class="signup-wrapper">
-        <div class="small-dialog-headline">
-          <h4 class="text-center">Sign Up</h4>
-        </div>
-
-        <div class="small-dialog-content">
-          <!-- Start of Registration form -->
-          <form id="cariera_registration" action="#" method="POST">
-            <p class="status"></p>
-
-            <div class="form-group">
-              <label for="movify_user_login">Username</label>
-              <input
-                name="movify_user_login"
-                id="movify_user_login"
-                class="form-control"
-                type="text"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="movify_user_email">Email</label>
-              <input
-                name="movify_user_email"
-                id="movify_user_email"
-                class="form-control"
-                type="email"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                name="movify_user_pass"
-                id="movify_password"
-                class="form-control"
-                type="password"
-              />
-            </div>
-
-            <div class="form-group">
-              <input
-                type="submit"
-                class="btn btn-main btn-effect nomargin"
-                value="Register"
-              />
-            </div>
-          </form>
-          <!-- End of Registration form -->
-
-          <div class="bottom-links">
-            <span>
-              Already have an account?
-              <a class="signInClick">Sign in</a>
-            </span>
-
-            <a class="forgetPasswordClick pull-right">Forgot Password</a>
-          </div>
-        </div>
-        <!-- .small-dialog-content -->
-      </div>
-      <!-- ===== End of Signup wrapper ===== -->
-
-      <!-- ===== Start of Forget Password wrapper ===== -->
-      <div class="forgetpassword-wrapper">
-        <div class="small-dialog-headline">
-          <h4 class="text-center">Forgotten Password</h4>
-        </div>
-
-        <div class="small-dialog-content">
-          <!-- Start of Forger Password form -->
-          <form id="forget_pass_form" action="#" method="post">
-            <p class="status"></p>
-
-            <div class="form-group">
-              <label for="password">Email Address *</label>
-              <input
-                type="email"
-                name="user_login"
-                class="form-control"
-                id="email3"
-                placeholder="Email Address *"
-              />
-            </div>
-
-            <div class="form-group">
-              <input
-                type="submit"
-                name="submit"
-                value="Get New Password"
-                class="btn btn-main btn-effect nomargin"
-              />
-            </div>
-          </form>
-          <!-- End of Forger Password form -->
-
-          <div class="bottom-links">
-            <a class="cancelClick">Cancel</a>
-          </div>
-        </div>
-        <!-- .small-dialog-content -->
-      </div>
-      <!-- ===== End of Forget Password wrapper ===== -->
-    </div>
   </div>
 </template>
 
@@ -888,6 +705,8 @@
 import HeaderView from "@/components/HeaderView.vue";
 import FooterView from "@/components/FooterView.vue";
 import SliderView from "@/components/Main/SliderView.vue";
+import SignView from "@/components/Main/SignView.vue";
+import VideoView from "@/components/Main/VideoView.vue";
 import axios from "axios";
 import carousel from "vue-owl-carousel";
 export default {
@@ -895,6 +714,8 @@ export default {
     HeaderView,
     FooterView,
     SliderView,
+    SignView,
+    VideoView,
     carousel,
   },
   data() {
@@ -910,27 +731,50 @@ export default {
         upComingTitle: [],
         upComingReleaseDate: [],
       },
+      i: 0,
+      modalShowValue: false,
+      videoShowValue: false,
     };
+  },
+  mounted() {
+    const i = Math.floor(Math.random() * 11);
+    this.i = i;
   },
   methods: {
     genreIdToName(ids, i) {
       for (let j = 0; j < this.movieList.genre.length; j++) {
         if (ids[i] === this.movieList.genre[j].id)
-          return (ids[i] = this.movieList.genre[j].name);
+          ids[i] = this.movieList.genre[j].name;
       }
+      return ids[i];
     },
-    upComingRand(e, str) {
-      const i = Math.floor(Math.random() * 11);
+    upComingRand(e = 0, str = "id") {
       switch (str) {
         case "id":
-          return this.upComing.upComing[i + e].id;
+          return this.upComing.upComing[this.i + e].id;
         case "title":
-          return this.upComing.upComing[i + e].title;
+          return this.upComing.upComing[this.i + e].title;
         case "path":
-          return this.upComing.upComing[i + e].backdrop_path;
+          return (
+            this.upComing.upComing[this.i + e].backdrop_path +
+            "?id=" +
+            this.upComing.upComing[this.i + e].id
+          );
         case "date":
-          return this.upComing.upComing[i + e].release_date;
+          return this.upComing.upComing[this.i + e].release_date;
       }
+    },
+    modalShow() {
+      return (this.modalShowValue = true);
+    },
+    modalClose() {
+      return (this.modalShowValue = false);
+    },
+    videoShow() {
+      return (this.videoShowValue = true);
+    },
+    videoClose() {
+      return (this.videoShowValue = false);
     },
   },
   async created() {
@@ -960,7 +804,7 @@ export default {
     });
     this.upComing.upComing = upComing.data.results;
     console.log(this.upComing.upComing);
-    console.log(this.upComingRand(0, "date"));
+    console.log(this.movieList.genre.length);
   },
   computed: {},
 };

@@ -317,6 +317,7 @@
                 <a
                   href="#login-register-popup"
                   class="btn btn-main btn-effect login-btn popup-with-zoom-anim"
+                  @click="login"
                 >
                   <i class="icon-user"></i>login
                 </a>
@@ -334,7 +335,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    login(e) {
+      e.preventDefault();
+      this.$emit("show");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
