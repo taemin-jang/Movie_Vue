@@ -20,7 +20,7 @@
             ></button
             ><iframe
               class="mfp-iframe"
-              src="//www.youtube.com/embed/Q0CbN8sfihY?autoplay=1"
+              :src="`//www.youtube.com/embed/${movieId}?autoplay=1`"
               frameborder="0"
               allowfullscreen=""
             ></iframe>
@@ -33,11 +33,22 @@
 
 <script>
 export default {
+  data() {
+    return {
+      videos: 0,
+    };
+  },
   props: {
     display: {
       type: Boolean,
       default() {
         return false;
+      },
+    },
+    movieId: {
+      type: String,
+      default() {
+        return "";
       },
     },
   },
