@@ -2,8 +2,8 @@
   <div>
     <VideoView
       :display="videoShowValue"
+      :movieId="videos"
       @close="videoClose"
-      @show="videoShow"
     />
     <!-- =============== START OF PRELOADER =============== -->
     <!-- <div class="loading">
@@ -177,7 +177,7 @@
                     <div class="inner">
                       <!-- Play Button -->
                       <div class="play-btn">
-                        <a href="#" class="play-video" @click="videoShow">
+                        <a href="#" class="play-video" @click="videoShow(i)">
                           <i class="fa fa-play"></i>
                         </a>
                       </div>
@@ -734,6 +734,8 @@ export default {
       i: 0,
       modalShowValue: false,
       videoShowValue: false,
+      videoId: 0,
+      videos: "",
     };
   },
   mounted() {
@@ -770,8 +772,14 @@ export default {
     modalClose() {
       return (this.modalShowValue = false);
     },
-    videoShow() {
-      return (this.videoShowValue = true);
+    async videoShow(i) {
+      this.videoId = this.movieList.nowPlay[i].id;
+      this.videoShowValue = true;
+      const video = await axios({
+        method: "get",
+        url: `https://api.themoviedb.org/3/movie/${this.videoId}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
+      });
+      this.videos = video.data.results[i].key;
     },
     videoClose() {
       return (this.videoShowValue = false);
@@ -783,7 +791,6 @@ export default {
       url: "https://api.themoviedb.org/3/movie/popular?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko",
     });
     this.movieList.popular = popular.data.results;
-    console.log(this.movieList.popular);
 
     const nowPlay = await axios({
       method: "get",
@@ -796,15 +803,12 @@ export default {
       url: "https://api.themoviedb.org/3/genre/movie/list?api_key=0bb0b51dbb47771a2b73398672aac6cf&language=ko",
     });
     this.movieList.genre = genre.data.genres;
-    console.log(this.movieList.genre);
 
     const upComing = await axios({
       method: "get",
       url: "https://api.themoviedb.org/3/movie/upcoming?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko",
     });
     this.upComing.upComing = upComing.data.results;
-    console.log(this.upComing.upComing);
-    console.log(this.movieList.genre.length);
   },
   computed: {},
 };
