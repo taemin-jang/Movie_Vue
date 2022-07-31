@@ -60,6 +60,7 @@ export default {
         return "display: none";
       }
     },
+
     close(e) {
       e.preventDefault();
       this.$emit("close");

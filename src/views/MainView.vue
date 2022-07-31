@@ -176,8 +176,12 @@
                   <div class="listing-content">
                     <div class="inner">
                       <!-- Play Button -->
-                      <div class="play-btn">
-                        <a href="#" class="play-video" @click="videoShow(i)">
+                      <div class="play-btn latest">
+                        <a
+                          href="#"
+                          class="play-video"
+                          @click="videoShow(i, 'latest')"
+                        >
                           <i class="fa fa-play"></i>
                         </a>
                       </div>
@@ -241,120 +245,136 @@
           <!-- End of row -->
 
           <!-- Start of row -->
-          <div class="row mt50" v-if="upComing.upComing.length > 0">
-            <!-- === Start of Upcoming Featured Movies & TV Shows === -->
-            <div class="col-md-8">
-              <!-- Start of Upcoming Featured Item -->
-              <div class="movie-box-1 upcoming-featured-item">
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="`https://image.tmdb.org/t/p/w500${upComingRand(
-                      0,
-                      'path'
-                    )}`"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
+          <div class="plz">
+            <div class="row mt50" v-if="upComing.upComing.length > 0">
+              <!-- === Start of Upcoming Featured Movies & TV Shows === -->
+              <div class="col-md-8">
+                <!-- Start of Upcoming Featured Item -->
+                <div class="movie-box-1 upcoming-featured-item">
+                  <!-- Start of Poster -->
+                  <div class="poster" id="upcoming">
+                    <div>
+                      <img
+                        :src="`https://image.tmdb.org/t/p/w500${upComingRand(
+                          0,
+                          'path'
+                        )}`"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <!-- End of Poster -->
 
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a href="#" class="play-video" @click="videoShow">
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
+                  <!-- Start of Buttons -->
+                  <div class="buttons upcoming">
+                    <a
+                      href="#"
+                      class="play-video"
+                      @click="videoShow(0, 'upcoming')"
+                    >
+                      <i class="fa fa-play"></i>
+                    </a>
+                  </div>
+                  <!-- End of Buttons -->
 
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">{{
-                      upComingRand(0, "title")
-                    }}</a>
-                  </h4>
-                  <span class="released"
-                    >Release Date:
-                    {{ upComingRand(0, "date") }}
-                  </span>
+                  <!-- Start of Movie Details -->
+                  <div class="movie-details">
+                    <h4 class="movie-title">
+                      <a href="movie-detail.html">{{
+                        upComingRand(0, "title")
+                      }}</a>
+                    </h4>
+                    <span class="released"
+                      >Release Date:
+                      {{ upComingRand(0, "date") }}
+                    </span>
+                  </div>
+                  <!-- End of Movie Details -->
                 </div>
-                <!-- End of Movie Details -->
+                <!-- End of Upcoming Featured Item -->
               </div>
-              <!-- End of Upcoming Featured Item -->
+              <!-- === End of Upcoming Featured Movies & TV Shows === -->
+
+              <!-- === Start of Upcoming Movies & TV Shows === -->
+              <div class="col-md-4">
+                <!-- Start of Upcoming Item 1 -->
+                <div class="movie-box-1 upcoming-item">
+                  <!-- Start of Poster -->
+                  <div class="poster">
+                    <img
+                      :src="`https://image.tmdb.org/t/p/w500${upComingRand(
+                        1,
+                        'path'
+                      )}`"
+                      alt=""
+                    />
+                  </div>
+                  <!-- End of Poster -->
+
+                  <!-- Start of Buttons -->
+                  <div class="buttons upcoming a">
+                    <a
+                      href="#"
+                      class="play-video"
+                      @click="videoShow(1, 'upcoming')"
+                    >
+                      <i class="fa fa-play"></i>
+                    </a>
+                  </div>
+                  <!-- End of Buttons -->
+
+                  <!-- Start of Movie Details -->
+                  <div class="movie-details">
+                    <h4 class="movie-title">
+                      <a href="movie-detail.html">{{
+                        upComingRand(1, "title")
+                      }}</a>
+                    </h4>
+                  </div>
+                  <!-- End of Movie Details -->
+                </div>
+                <!-- End of Upcoming Item 1 -->
+
+                <!-- Start of Upcoming Item 2 -->
+                <div class="movie-box-1 upcoming-item mt20">
+                  <!-- Start of Poster -->
+                  <div class="poster">
+                    <img
+                      :src="`https://image.tmdb.org/t/p/w500${upComingRand(
+                        2,
+                        'path'
+                      )}`"
+                      alt=""
+                    />
+                  </div>
+                  <!-- End of Poster -->
+
+                  <!-- Start of Buttons -->
+                  <div class="buttons upcoming">
+                    <a
+                      href="#"
+                      class="play-video"
+                      @click="videoShow(2, 'upcoming')"
+                    >
+                      <i class="fa fa-play"></i>
+                    </a>
+                  </div>
+                  <!-- End of Buttons -->
+
+                  <!-- Start of Movie Details -->
+                  <div class="movie-details">
+                    <h4 class="movie-title">
+                      <a href="movie-detail.html">{{
+                        upComingRand(2, "title")
+                      }}</a>
+                    </h4>
+                  </div>
+                  <!-- End of Movie Details -->
+                </div>
+                <!-- End of Upcoming Item 2 -->
+              </div>
+              <!-- === End of Upcoming Movies & TV Shows === -->
             </div>
-            <!-- === End of Upcoming Featured Movies & TV Shows === -->
-
-            <!-- === Start of Upcoming Movies & TV Shows === -->
-            <div class="col-md-4">
-              <!-- Start of Upcoming Item 1 -->
-              <div class="movie-box-1 upcoming-item">
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="`https://image.tmdb.org/t/p/w500${upComingRand(
-                      1,
-                      'path'
-                    )}`"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
-
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a href="#" class="play-video" @click="videoShow">
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
-
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">{{
-                      upComingRand(1, "title")
-                    }}</a>
-                  </h4>
-                </div>
-                <!-- End of Movie Details -->
-              </div>
-              <!-- End of Upcoming Item 1 -->
-
-              <!-- Start of Upcoming Item 2 -->
-              <div class="movie-box-1 upcoming-item mt20">
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="`https://image.tmdb.org/t/p/w500${upComingRand(
-                      2,
-                      'path'
-                    )}`"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
-
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a href="#" class="play-video" @click="videoShow">
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
-
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">{{
-                      upComingRand(2, "title")
-                    }}</a>
-                  </h4>
-                </div>
-                <!-- End of Movie Details -->
-              </div>
-              <!-- End of Upcoming Item 2 -->
-            </div>
-            <!-- === End of Upcoming Movies & TV Shows === -->
           </div>
           <!-- End of row -->
         </div>
@@ -731,7 +751,7 @@ export default {
         upComingTitle: [],
         upComingReleaseDate: [],
       },
-      i: 0,
+
       modalShowValue: false,
       videoShowValue: false,
       videoId: 0,
@@ -757,11 +777,14 @@ export default {
         case "title":
           return this.upComing.upComing[this.i + e].title;
         case "path":
-          return (
-            this.upComing.upComing[this.i + e].backdrop_path +
-            "?id=" +
-            this.upComing.upComing[this.i + e].id
-          );
+          if (this.upComing.upComing[this.i + e].backdrop_path !== null) {
+            return this.upComing.upComing[this.i + e].backdrop_path;
+          } else {
+            // v-if문 걸어논 곳은 dom 접근이 안되나여??
+            //document.querySelector(".poster img").style.height = "31.7vh";
+            //console.log(document.querySelector(".plz .poster"));
+            return this.upComing.upComing[this.i + e].poster_path;
+          }
         case "date":
           return this.upComing.upComing[this.i + e].release_date;
       }
@@ -772,15 +795,27 @@ export default {
     modalClose() {
       return (this.modalShowValue = false);
     },
-    async videoShow(i) {
-      this.videoId = this.movieList.nowPlay[i].id;
+
+    async videoShow(i, str) {
+      if (str === "latest") {
+        this.videoId = this.movieList.nowPlay[i].id;
+      } else {
+        this.videoId = this.upComing.upComing[this.i + i].id;
+      }
+
       this.videoShowValue = true;
       const video = await axios({
         method: "get",
         url: `https://api.themoviedb.org/3/movie/${this.videoId}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
       });
-      this.videos = video.data.results[i].key;
+      try {
+        this.videos = video.data.results[0].key;
+      } catch (error) {
+        this.videoShowValue = false;
+        console.log("not find video");
+      }
     },
+
     videoClose() {
       return (this.videoShowValue = false);
     },
