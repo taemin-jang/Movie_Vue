@@ -1,5 +1,10 @@
 <template>
   <div>
+    <VideoView
+      :display="videoShowValue"
+      :movieId="videos"
+      @close="videoClose"
+    />
     <!-- =============== START OF RESPONSIVE - MAIN NAV =============== -->
     <nav id="main-mobile-nav"></nav>
     <!-- =============== END OF RESPONSIVE - MAIN NAV =============== -->
@@ -109,49 +114,67 @@
                   <h3 class="title">Photos & Videos</h3>
 
                   <ul class="image-gallery isotope">
-                    <li class="element">
-                      <a
-                        :href="`https://image.tmdb.org/t/p/original${movieDetail.images[0].file_path}`"
-                      >
-                        <img
-                          :src="`https://image.tmdb.org/t/p/w300${movieDetail.images[0].file_path}`"
-                          class="img-responsive"
-                          alt=""
-                      /></a>
+                    <li
+                      class="element"
+                      v-for="(item, i) in movieDetail.images"
+                      :key="i"
+                    >
+                      <div v-if="i < 6">
+                        <a
+                          :href="`https://image.tmdb.org/t/p/original${movieDetail.images[i].file_path}`"
+                        >
+                          <img
+                            :src="`https://image.tmdb.org/t/p/w300${movieDetail.images[i].file_path}`"
+                            class="img-responsive"
+                            alt=""
+                          />
+                        </a>
+                      </div>
                     </li>
 
-                    <li class="element">
-                      <a
-                        :href="`https://image.tmdb.org/t/p/original${movieDetail.images[5].file_path}`"
-                      >
-                        <img
-                          :src="`https://image.tmdb.org/t/p/w300${movieDetail.images[5].file_path}`"
-                          class="img-responsive"
-                          alt=""
-                      /></a>
-                    </li>
+                    <carousel
+                      :autoplay="false"
+                      :nav="false"
+                      :dots="true"
+                      :margin="5"
+                      :items="3"
+                      class="carousel"
+                      v-if="movieDetail.movies.length > 0"
+                    >
+                      <!-- === Start of Sliding Item 1 === -->
+                      <div v-for="(items, i) in movieDetail.movies" :key="i">
+                        <div class="item">
+                          <div class="movie-box-1 upcoming-item">
+                            <!-- Start of Poster -->
+                            <div class="poster">
+                              <img
+                                :src="`https://img.youtube.com/vi/${items.key}/mqdefault.jpg`"
+                                alt=""
+                              />
+                            </div>
+                            <!-- End of Poster -->
 
-                    <li class="element">
-                      <a href="assets/images/other/home2-bg.jpg">
-                        <img
-                          :src="require(`@/assets/images/other/home2-bg.jpg`)"
-                          class="img-responsive"
-                          alt=""
-                        />
-                      </a>
-                    </li>
-
-                    <li class="element">
-                      <a href="assets/images/blog/bloglist-2.jpg">
-                        <img
-                          :src="require(`@/assets/images/blog/bloglist-2.jpg`)"
-                          class="img-responsive"
-                          alt=""
-                        />
-                      </a>
-                    </li>
-
-                    <li class="element">
+                            <!-- Start of Buttons -->
+                            <div class="buttons upcoming a">
+                              <a
+                                href="#"
+                                class="play-video"
+                                @click="videoShow(i)"
+                              >
+                                <i class="fa fa-play"></i>
+                              </a>
+                            </div>
+                            <!-- End of Buttons -->
+                          </div>
+                        </div>
+                      </div>
+                      <!-- === End of Sliding Item 1 === -->
+                    </carousel>
+                    <!-- <li
+                      class="element"
+                      v-for="(item, i) in movieDetail.images"
+                      :key="i"
+                    >
                       <a href="assets/images/blog/bloglist-1.jpg">
                         <img
                           :src="require(`@/assets/images/blog/bloglist-1.jpg`)"
@@ -159,47 +182,7 @@
                           alt=""
                         />
                       </a>
-                    </li>
-
-                    <li class="element">
-                      <a href="assets/images/blog/bloglist-3.jpg">
-                        <img
-                          :src="require(`@/assets/images/blog/bloglist-3.jpg`)"
-                          class="img-responsive"
-                          alt=""
-                        />
-                      </a>
-                    </li>
-
-                    <li class="element">
-                      <a href="assets/images/blog/bloglist-1.jpg">
-                        <img
-                          :src="require(`@/assets/images/blog/bloglist-1.jpg`)"
-                          class="img-responsive"
-                          alt=""
-                        />
-                      </a>
-                    </li>
-
-                    <li class="element">
-                      <a href="assets/images/other/landscape.jpg">
-                        <img
-                          :src="require(`@/assets/images/other/landscape.jpg`)"
-                          class="img-responsive"
-                          alt=""
-                        />
-                      </a>
-                    </li>
-
-                    <li class="element">
-                      <a href="assets/images/other/home2-bg.jpg">
-                        <img
-                          :src="require(`@/assets/images/other/home2-bg.jpg`)"
-                          class="img-responsive"
-                          alt=""
-                        />
-                      </a>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </div>
@@ -255,59 +238,15 @@
                   <h3 class="title">Cast</h3>
 
                   <ul class="cast-wrapper">
-                    <li>
+                    <li v-for="(item, i) in 5" :key="i">
                       <a href="celebrity-detail.html">
                         <span class="circle-img">
                           <img
-                            :src="
-                              require(`@/assets/images/celebrities/celebrity1.jpg`)
-                            "
+                            :src="`https://image.tmdb.org/t/p/w138_and_h175_face/${movieDetail.casts[i].profile_path}`"
                             alt=""
                           />
                         </span>
-                        <h6 class="name">Bryan Doe</h6>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="celebrity-detail.html">
-                        <span class="circle-img">
-                          <img
-                            :src="
-                              require(`@/assets/images/celebrities/celebrity2.jpg`)
-                            "
-                            alt=""
-                          />
-                        </span>
-                        <h6 class="name">Baron Saul</h6>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="celebrity-detail.html">
-                        <span class="circle-img">
-                          <img
-                            :src="
-                              require(`@/assets/images/celebrities/celebrity3.jpg`)
-                            "
-                            alt=""
-                          />
-                        </span>
-                        <h6 class="name">Ewan Actor</h6>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="celebrity-detail.html">
-                        <span class="circle-img">
-                          <img
-                            :src="
-                              require(`@/assets/images/celebrities/celebrity4.jpg`)
-                            "
-                            alt=""
-                          />
-                        </span>
-                        <h6 class="name">Nicole Beet</h6>
+                        <h6 class="name">{{ movieDetail.casts[i].name }}</h6>
                       </a>
                     </li>
                   </ul>
@@ -325,6 +264,9 @@
           </div>
         </div>
       </section>
+
+      <!--  -->
+
       <!-- =============== END OF MOVIE DETAIL MAIN SECTION =============== -->
 
       <!-- =============== START OF RECOMMENDED MOVIES SECTION =============== -->
@@ -849,18 +791,27 @@
 <script>
 import HeaderView from "@/components/HeaderView.vue";
 import FooterView from "@/components/FooterView.vue";
+import VideoView from "@/components/Main/VideoView.vue";
+import carousel from "vue-owl-carousel";
 import axios from "axios";
 export default {
   components: {
     HeaderView,
     FooterView,
+    VideoView,
+    carousel,
   },
   data() {
     return {
       movieDetail: {
         detail: [],
         images: [],
+        movies: [],
+        casts: [],
       },
+      videoShowValue: false,
+      videoId: 0,
+      videos: "",
     };
   },
   methods: {
@@ -870,8 +821,29 @@ export default {
     releaseDate(i) {
       return this.movieDetail.detail.release_date.split("-")[i];
     },
+
+    async videoShow(i) {
+      this.videoShowValue = true;
+      const video = await axios({
+        method: "get",
+        url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
+      });
+      try {
+        this.videos = video.data.results[i].key;
+        console.log(this.videos);
+      } catch (error) {
+        this.videoShowValue = false;
+        console.log("not find video");
+      }
+    },
+
+    videoClose() {
+      return (this.videoShowValue = false);
+    },
   },
+
   computed: {},
+
   async created() {
     const detail = await axios({
       method: "get",
@@ -887,6 +859,20 @@ export default {
     });
     this.movieDetail.images = images.data.posters;
     console.log(this.movieDetail.images);
+
+    const movies = await axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
+    });
+    this.movieDetail.movies = movies.data.results;
+    console.log(this.movieDetail.movies);
+
+    const cast = await axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/credits?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
+    });
+    this.movieDetail.casts = cast.data.cast;
+    console.log(this.movieDetail.casts);
   },
 };
 </script>
