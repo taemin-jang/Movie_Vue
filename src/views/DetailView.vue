@@ -14,7 +14,12 @@
       <!-- =============== START OF MOVIE DETAIL INTRO =============== -->
       <section
         class="movie-detail-intro overlay-gradient ptb100"
-        style="background: url(assets/images/other/movie-detail-bg.jpg)"
+        :style="{
+          background:
+            'url(' +
+            `https://image.tmdb.org/t/p/original/${movieDetail.detail.backdrop_path}` +
+            ')',
+        }"
       ></section>
       <!-- =============== END OF MOVIE DETAIL INTRO =============== -->
 
@@ -47,18 +52,16 @@
                   </li>
                   <li>
                     <span
-                      v-for="(item, i) in movieDetail.detail.genres.length"
+                      v-for="(item, i) in movieDetail.detail.genres"
                       :key="i"
                     >
                       {{ genre(movieDetail.detail.genres, i) }}
                     </span>
                   </li>
                   <li>
-                    {{ movieDetail.detail.release_date.split("-")[0] + "년" }}
-                    {{ movieDetail.detail.release_date.split("-")[1] + "월" }}
-                    {{
-                      movieDetail.detail.release_date.split("-")[2] + "일 개봉"
-                    }}
+                    {{ releaseDate(0) + "년" }}
+                    {{ releaseDate(1) + "월" }}
+                    {{ releaseDate(2) + "일 개봉" }}
                   </li>
                 </ul>
 
@@ -107,23 +110,25 @@
 
                   <ul class="image-gallery isotope">
                     <li class="element">
-                      <a href="assets/images/blog/bloglist-1.jpg">
+                      <a
+                        :href="`https://image.tmdb.org/t/p/original${movieDetail.images[0].file_path}`"
+                      >
                         <img
-                          :src="require(`@/assets/images/blog/bloglist-1.jpg`)"
+                          :src="`https://image.tmdb.org/t/p/w300${movieDetail.images[0].file_path}`"
                           class="img-responsive"
                           alt=""
-                        />
-                      </a>
+                      /></a>
                     </li>
 
                     <li class="element">
-                      <a href="assets/images/blog/bloglist-2.jpg">
+                      <a
+                        :href="`https://image.tmdb.org/t/p/original${movieDetail.images[5].file_path}`"
+                      >
                         <img
-                          :src="require(`@/assets/images/blog/bloglist-2.jpg`)"
+                          :src="`https://image.tmdb.org/t/p/w300${movieDetail.images[5].file_path}`"
                           class="img-responsive"
                           alt=""
-                        />
-                      </a>
+                      /></a>
                     </li>
 
                     <li class="element">
@@ -854,13 +859,16 @@ export default {
     return {
       movieDetail: {
         detail: [],
-        img: [],
+        images: [],
       },
     };
   },
   methods: {
     genre(item, i) {
       return item[i].name;
+    },
+    releaseDate(i) {
+      return this.movieDetail.detail.release_date.split("-")[i];
     },
   },
   computed: {},
@@ -872,6 +880,13 @@ export default {
     this.movieDetail.detail = detail.data;
     console.log(this.movieDetail.detail.spoken_languages);
     console.log(this.$route.params.idx);
+
+    const images = await axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/images?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
+    });
+    this.movieDetail.images = images.data.posters;
+    console.log(this.movieDetail.images);
   },
 };
 </script>
