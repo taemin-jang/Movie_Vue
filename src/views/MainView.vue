@@ -210,11 +210,10 @@
                         {{ items.overview }}
                       </p>
 
-                      <a
-                        href="movie-detail.html"
+                      <router-link
+                        :to="`/detail/${items.id}`"
                         class="btn btn-main btn-effect"
-                        style=""
-                        >details</a
+                        >details</router-link
                       >
                     </div>
                   </div>
@@ -280,9 +279,9 @@
                   <!-- Start of Movie Details -->
                   <div class="movie-details">
                     <h4 class="movie-title">
-                      <a href="movie-detail.html">{{
+                      <router-link :to="`/detail/${upComingRand(0, 'id')}`">{{
                         upComingRand(0, "title")
-                      }}</a>
+                      }}</router-link>
                     </h4>
                     <span class="released"
                       >Release Date:
@@ -326,9 +325,9 @@
                   <!-- Start of Movie Details -->
                   <div class="movie-details">
                     <h4 class="movie-title">
-                      <a href="movie-detail.html">{{
+                      <router-link :to="`/detail/${upComingRand(1, 'id')}`">{{
                         upComingRand(1, "title")
-                      }}</a>
+                      }}</router-link>
                     </h4>
                   </div>
                   <!-- End of Movie Details -->
@@ -364,9 +363,9 @@
                   <!-- Start of Movie Details -->
                   <div class="movie-details">
                     <h4 class="movie-title">
-                      <a href="movie-detail.html">{{
+                      <router-link :to="`/detail/${upComingRand(2, 'id')}`">{{
                         upComingRand(2, "title")
-                      }}</a>
+                      }}</router-link>
                     </h4>
                   </div>
                   <!-- End of Movie Details -->
