@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <!-- ====== Start of Navbar ====== -->
         <nav class="navbar navbar-expand-lg">
-          <a class="navbar-brand" href="index.html">
+          <router-link class="navbar-brand" to="/">
             <!-- INSERT YOUR LOGO HERE -->
             <img
               src="../assets/images/logo.svg"
@@ -19,7 +19,7 @@
               width="150"
               class="logo-white"
             />
-          </a>
+          </router-link>
 
           <!-- Login Button on Responsive -->
           <a
