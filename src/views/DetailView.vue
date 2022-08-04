@@ -3,6 +3,7 @@
     <VideoView
       :display="videoShowValue"
       :movieId="videos"
+      :top="videoTop"
       @close="videoClose"
     />
     <!-- =============== START OF RESPONSIVE - MAIN NAV =============== -->
@@ -39,10 +40,7 @@
                   alt=""
                 />
 
-                <a
-                  href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                  class="play-video"
-                >
+                <a class="play-video" @click="videoShow(0, 'main')">
                   <i class="fa fa-play"></i>
                 </a>
               </div>
@@ -144,7 +142,7 @@
                       <!-- === Start of Sliding Item 1 === -->
                       <div v-for="(items, i) in movieDetail.movies" :key="i">
                         <div class="item">
-                          <div class="movie-box-1 upcoming-item">
+                          <div class="movie-box-1">
                             <!-- Start of Poster -->
                             <div class="poster">
                               <img
@@ -155,11 +153,10 @@
                             <!-- End of Poster -->
 
                             <!-- Start of Buttons -->
-                            <div class="buttons upcoming a">
+                            <div class="buttons a">
                               <a
-                                href="#"
                                 class="play-video"
-                                @click="videoShow(i)"
+                                @click="videoShow(i, 'add')"
                               >
                                 <i class="fa fa-play"></i>
                               </a>
@@ -278,61 +275,66 @@
           <!-- End of row -->
 
           <!-- Start of Latest Movies Slider -->
-          <div class="owl-carousel recommended-slider mt20">
+          <carousel
+            :autoplay="true"
+            :nav="false"
+            :dots="true"
+            :margin="5"
+            :items="5"
+            class="carousel"
+            v-if="movieDetail.recommendations.length > 0"
+          >
             <!-- === Start of Sliding Item 1 === -->
-            <div class="item">
-              <!-- Start of Movie Box -->
-              <div
-                class="movie-box-1"
-                v-for="(recomItem, i) in movieDetail.recommendations"
-                :key="i"
-              >
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="`https://image.tmdb.org/t/p/w300${recomItem[i].poster_path}`"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
-
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
-
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">Daredevil</a>
-                  </h4>
-                  <span class="released">19 Apr 2015</span>
-                </div>
-                <!-- End of Movie Details -->
-
-                <!-- Start of Rating -->
-                <div class="stars">
-                  <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
+            <div v-for="(recomItem, i) in movieDetail.recommendations" :key="i">
+              <div class="item">
+                <!-- Start of Movie Box -->
+                <div class="movie-box-1">
+                  <!-- Start of Poster -->
+                  <div class="poster">
+                    <img :src="`${recomImg(i)}`" alt="" />
                   </div>
-                  <span>8.7 / 10</span>
+                  <!-- End of Poster -->
+
+                  <!-- Start of Buttons -->
+                  <div class="buttons a">
+                    <a
+                      class="play-video"
+                      @click="videoShow(0, 'recom', recomItem.id)"
+                    >
+                      <i class="fa fa-play"></i>
+                    </a>
+                  </div>
+                  <!-- End of Buttons -->
+
+                  <!-- Start of Movie Details -->
+                  <div class="movie-details">
+                    <h4 class="movie-title" @click="reload">
+                      <router-link :to="`/details/${recomItem.id}`">{{
+                        recomItem.title
+                      }}</router-link>
+                    </h4>
+                    <span class="released">{{ recomItem.release_date }}</span>
+                  </div>
+                  <!-- End of Movie Details -->
+
+                  <!-- Start of Rating -->
+                  <div class="stars">
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-half-o"></i>
+                    </div>
+                    <span>{{ recomItem.vote_average.toFixed(1) }} / 10</span>
+                  </div>
+                  <!-- End of Rating -->
                 </div>
-                <!-- End of Rating -->
+                <!-- End of Movie Box -->
               </div>
-              <!-- End of Movie Box -->
             </div>
             <!-- === End of Sliding Item 1 === -->
-          </div>
+          </carousel>
           <!-- End of Latest Movies Slider -->
         </div>
       </section>
@@ -386,6 +388,7 @@ export default {
       videoShowValue: false,
       videoId: 0,
       videos: "",
+      videoTop: "",
     };
   },
   methods: {
@@ -396,18 +399,55 @@ export default {
       return this.movieDetail.detail.release_date.split("-")[i];
     },
 
-    async videoShow(i) {
+    async videoShow(i = 0, str, id = 0) {
       this.videoShowValue = true;
-      const video = await axios({
-        method: "get",
-        url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
-      });
-      try {
-        this.videos = video.data.results[i].key;
-        console.log(this.videos);
-      } catch (error) {
-        this.videoShowValue = false;
-        console.log("not find video");
+      console.log(str);
+      if (str === "add") {
+        // 추가된 비디오 영상
+        const video = await axios({
+          method: "get",
+          url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
+        });
+        try {
+          this.videos = video.data.results[i].key;
+          this.videoTop = str;
+          console.log(this.videos);
+        } catch (error) {
+          this.videos = "#";
+          this.videoTop = str;
+          // this.videoShowValue = false;
+          console.log("not find video");
+        }
+      } else if (str === "main") {
+        const recom = await axios({
+          method: "get",
+          url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
+        });
+        try {
+          console.log(this.videos);
+          this.videos = recom.data.results[0].key;
+          this.videoTop = str;
+        } catch (error) {
+          this.videos = "#";
+          this.videoTop = str;
+          // this.videoShowValue = false;
+          console.log("not find video");
+        }
+      } else if (str === "recom") {
+        const recom = await axios({
+          method: "get",
+          url: `https://api.themoviedb.org/3/movie/${id}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
+        });
+        try {
+          this.videos = recom.data.results[0].key;
+          this.videoTop = str;
+          console.log(this.videos);
+        } catch (error) {
+          this.videos = "#";
+          this.videoTop = str;
+          // this.videoShowValue = false;
+          console.log("not find video");
+        }
       }
     },
 
@@ -430,6 +470,21 @@ export default {
       } catch (error) {
         return "Non";
       }
+    },
+    recomImg(idx) {
+      try {
+        return (
+          "https://image.tmdb.org/t/p/w300" +
+          this.movieDetail.recommendations[idx].poster_path
+        );
+      } catch (error) {
+        console.log("error");
+        return "#";
+      }
+    },
+    // 같은 페이지 다른 id 로 이동할 때 페이지 새로고침
+    reload() {
+      return this.$router.go(this.$router.currentRoute);
     },
   },
 
@@ -463,7 +518,7 @@ export default {
 
     const recommendations = await axios({
       method: "get",
-      url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/recommendations?api_key=0bb0b51dbb47771a2b73398672aac6cf`,
+      url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/recommendations?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
     });
     this.movieDetail.recommendations = recommendations.data.results;
     console.log(this.movieDetail.recommendations);
