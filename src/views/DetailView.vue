@@ -241,12 +241,9 @@
                     <li v-for="(item, i) in 5" :key="i">
                       <a href="celebrity-detail.html">
                         <span class="circle-img">
-                          <img
-                            :src="`https://image.tmdb.org/t/p/w138_and_h175_face/${movieDetail.casts[i].profile_path}`"
-                            alt=""
-                          />
+                          <img :src="`${castImg(i)}`" alt="" />
                         </span>
-                        <h6 class="name">{{ movieDetail.casts[i].name }}</h6>
+                        <h6 class="name">{{ castName(i) }}</h6>
                       </a>
                     </li>
                   </ul>
@@ -285,11 +282,15 @@
             <!-- === Start of Sliding Item 1 === -->
             <div class="item">
               <!-- Start of Movie Box -->
-              <div class="movie-box-1">
+              <div
+                class="movie-box-1"
+                v-for="(recomItem, i) in movieDetail.recommendations"
+                :key="i"
+              >
                 <!-- Start of Poster -->
                 <div class="poster">
                   <img
-                    :src="require(`@/assets/images/posters/poster-5.jpg`)"
+                    :src="`https://image.tmdb.org/t/p/w300${recomItem[i].poster_path}`"
                     alt=""
                   />
                 </div>
@@ -331,256 +332,6 @@
               <!-- End of Movie Box -->
             </div>
             <!-- === End of Sliding Item 1 === -->
-
-            <!-- === Start of Sliding Item 2 === -->
-            <div class="item">
-              <!-- Start of Movie Box -->
-              <div class="movie-box-1">
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="require(`@/assets/images/posters/poster-6.jpg`)"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
-
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
-
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">Stranger Things</a>
-                  </h4>
-                  <span class="released">15 Jul 2016</span>
-                </div>
-                <!-- End of Movie Details -->
-
-                <!-- Start of Rating -->
-                <div class="stars">
-                  <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                  </div>
-                  <span>9 / 10</span>
-                </div>
-                <!-- End of Rating -->
-              </div>
-              <!-- End of Movie Box -->
-            </div>
-            <!-- === End of Sliding Item 2 === -->
-
-            <!-- === Start of Sliding Item 3 === -->
-            <div class="item">
-              <!-- Start of Movie Box -->
-              <div class="movie-box-1">
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="require(`@/assets/images/posters/poster-7.jpg`)"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
-
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
-
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">Luke Cage</a>
-                  </h4>
-                  <span class="released">30 Sep 2016</span>
-                </div>
-                <!-- End of Movie Details -->
-
-                <!-- Start of Rating -->
-                <div class="stars">
-                  <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                    <i class="fa fa-star-o"></i>
-                  </div>
-                  <span>7.6 / 10</span>
-                </div>
-                <!-- End of Rating -->
-              </div>
-              <!-- End of Movie Box -->
-            </div>
-            <!-- === End of Sliding Item 3 === -->
-
-            <!-- === Start of Sliding Item 4 === -->
-            <div class="item">
-              <!-- Start of Movie Box -->
-              <div class="movie-box-1">
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="require(`@/assets/images/posters/poster-8.jpg`)"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
-
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
-
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">The Flash</a>
-                  </h4>
-                  <span class="released">7 Oct 2014</span>
-                </div>
-                <!-- End of Movie Details -->
-
-                <!-- Start of Rating -->
-                <div class="stars">
-                  <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                  </div>
-                  <span>8 / 10</span>
-                </div>
-                <!-- End of Rating -->
-              </div>
-              <!-- End of Movie Box -->
-            </div>
-            <!-- === End of Sliding Item 4 === -->
-
-            <!-- === Start of Sliding Item 5 === -->
-            <div class="item">
-              <!-- Start of Movie Box -->
-              <div class="movie-box-1">
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="require(`@/assets/images/posters/poster-5.jpg`)"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
-
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
-
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">Daredevil</a>
-                  </h4>
-                  <span class="released">19 Apr 2015</span>
-                </div>
-                <!-- End of Movie Details -->
-
-                <!-- Start of Rating -->
-                <div class="stars">
-                  <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                  </div>
-                  <span>8.7 / 10</span>
-                </div>
-                <!-- End of Rating -->
-              </div>
-              <!-- End of Movie Box -->
-            </div>
-            <!-- === End of Sliding Item 5 === -->
-
-            <!-- === Start of Sliding Item 6 === -->
-            <div class="item">
-              <!-- Start of Movie Box -->
-              <div class="movie-box-1">
-                <!-- Start of Poster -->
-                <div class="poster">
-                  <img
-                    :src="require(`@/assets/images/posters/poster-6.jpg`)"
-                    alt=""
-                  />
-                </div>
-                <!-- End of Poster -->
-
-                <!-- Start of Buttons -->
-                <div class="buttons">
-                  <a
-                    href="https://www.youtube.com/watch?v=Q0CbN8sfihY"
-                    class="play-video"
-                  >
-                    <i class="fa fa-play"></i>
-                  </a>
-                </div>
-                <!-- End of Buttons -->
-
-                <!-- Start of Movie Details -->
-                <div class="movie-details">
-                  <h4 class="movie-title">
-                    <a href="movie-detail.html">Stranger Things</a>
-                  </h4>
-                  <span class="released">15 Jul 2016</span>
-                </div>
-                <!-- End of Movie Details -->
-
-                <!-- Start of Rating -->
-                <div class="stars">
-                  <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                  </div>
-                  <span>9 / 10</span>
-                </div>
-                <!-- End of Rating -->
-              </div>
-              <!-- End of Movie Box -->
-            </div>
-            <!-- === End of Sliding Item 6 === -->
           </div>
           <!-- End of Latest Movies Slider -->
         </div>
@@ -601,184 +352,6 @@
       </form>
     </div>
     <!-- =============== END OF GENERAL SEARCH WRAPPER =============== -->
-
-    <!-- =============== START OF LOGIN & REGISTER POPUP =============== -->
-    <div
-      id="login-register-popup"
-      class="small-dialog zoom-anim-dialog mfp-hide"
-    >
-      <!-- ===== Start of Signin wrapper ===== -->
-      <div class="signin-wrapper">
-        <div class="small-dialog-headline">
-          <h4 class="text-center">Sign in</h4>
-        </div>
-
-        <div class="small-dialog-content">
-          <!-- Start of Login form -->
-          <form id="cariera_login" method="post">
-            <p class="status"></p>
-
-            <div class="form-group">
-              <label for="username">Username or Email *</label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                placeholder="Your Username or Email *"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="password">Password *</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                placeholder="Your Password *"
-              />
-            </div>
-
-            <div class="form-group">
-              <div class="checkbox pad-bottom-10">
-                <input
-                  id="check1"
-                  type="checkbox"
-                  name="remember"
-                  value="yes"
-                />
-                <label for="check1">Keep me signed in</label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <input
-                type="submit"
-                value="Sign in"
-                class="btn btn-main btn-effect nomargin"
-              />
-            </div>
-          </form>
-          <!-- End of Login form -->
-
-          <div class="bottom-links">
-            <span>
-              Not a member?
-              <a class="signUpClick">Sign up</a>
-            </span>
-            <a class="forgetPasswordClick pull-right">Forgot Password</a>
-          </div>
-        </div>
-      </div>
-      <!-- ===== End of Signin wrapper ===== -->
-
-      <!-- ===== Start of Signup wrapper ===== -->
-      <div class="signup-wrapper">
-        <div class="small-dialog-headline">
-          <h4 class="text-center">Sign Up</h4>
-        </div>
-
-        <div class="small-dialog-content">
-          <!-- Start of Registration form -->
-          <form id="cariera_registration" action="#" method="POST">
-            <p class="status"></p>
-
-            <div class="form-group">
-              <label for="movify_user_login">Username</label>
-              <input
-                name="movify_user_login"
-                id="movify_user_login"
-                class="form-control"
-                type="text"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="movify_user_email">Email</label>
-              <input
-                name="movify_user_email"
-                id="movify_user_email"
-                class="form-control"
-                type="email"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                name="movify_user_pass"
-                id="movify_password"
-                class="form-control"
-                type="password"
-              />
-            </div>
-
-            <div class="form-group">
-              <input
-                type="submit"
-                class="btn btn-main btn-effect nomargin"
-                value="Register"
-              />
-            </div>
-          </form>
-          <!-- End of Registration form -->
-
-          <div class="bottom-links">
-            <span>
-              Already have an account?
-              <a class="signInClick">Sign in</a>
-            </span>
-
-            <a class="forgetPasswordClick pull-right">Forgot Password</a>
-          </div>
-        </div>
-        <!-- .small-dialog-content -->
-      </div>
-      <!-- ===== End of Signup wrapper ===== -->
-
-      <!-- ===== Start of Forget Password wrapper ===== -->
-      <div class="forgetpassword-wrapper">
-        <div class="small-dialog-headline">
-          <h4 class="text-center">Forgotten Password</h4>
-        </div>
-
-        <div class="small-dialog-content">
-          <!-- Start of Forger Password form -->
-          <form id="forget_pass_form" action="#" method="post">
-            <p class="status"></p>
-
-            <div class="form-group">
-              <label for="password">Email Address *</label>
-              <input
-                type="email"
-                name="user_login"
-                class="form-control"
-                id="email3"
-                placeholder="Email Address *"
-              />
-            </div>
-
-            <div class="form-group">
-              <input
-                type="submit"
-                name="submit"
-                value="Get New Password"
-                class="btn btn-main btn-effect nomargin"
-              />
-            </div>
-          </form>
-          <!-- End of Forger Password form -->
-
-          <div class="bottom-links">
-            <a class="cancelClick">Cancel</a>
-          </div>
-        </div>
-        <!-- .small-dialog-content -->
-      </div>
-      <!-- ===== End of Forget Password wrapper ===== -->
-    </div>
-    <!-- =============== END OF LOGIN & REGISTER POPUP =============== -->
 
     <!-- ===== Start of Back to Top Button ===== -->
     <div id="backtotop">
@@ -808,6 +381,7 @@ export default {
         images: [],
         movies: [],
         casts: [],
+        recommendations: [],
       },
       videoShowValue: false,
       videoId: 0,
@@ -840,6 +414,23 @@ export default {
     videoClose() {
       return (this.videoShowValue = false);
     },
+    castImg(i) {
+      try {
+        return (
+          "https://image.tmdb.org/t/p/w138_and_h175_face" +
+          this.movieDetail.casts[i].profile_path
+        );
+      } catch (error) {
+        return "#";
+      }
+    },
+    castName(i) {
+      try {
+        return this.movieDetail.casts[i].name;
+      } catch (error) {
+        return "Non";
+      }
+    },
   },
 
   computed: {},
@@ -850,22 +441,18 @@ export default {
       url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
     });
     this.movieDetail.detail = detail.data;
-    console.log(this.movieDetail.detail.spoken_languages);
-    console.log(this.$route.params.idx);
 
     const images = await axios({
       method: "get",
       url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/images?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
     });
     this.movieDetail.images = images.data.posters;
-    console.log(this.movieDetail.images);
 
     const movies = await axios({
       method: "get",
       url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
     });
     this.movieDetail.movies = movies.data.results;
-    console.log(this.movieDetail.movies);
 
     const cast = await axios({
       method: "get",
@@ -873,6 +460,13 @@ export default {
     });
     this.movieDetail.casts = cast.data.cast;
     console.log(this.movieDetail.casts);
+
+    const recommendations = await axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/recommendations?api_key=0bb0b51dbb47771a2b73398672aac6cf`,
+    });
+    this.movieDetail.recommendations = recommendations.data.results;
+    console.log(this.movieDetail.recommendations);
   },
 };
 </script>
