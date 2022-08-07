@@ -16,7 +16,7 @@
         <div class="celebrity-content">
           <div class="inner">
             <h3 class="title">
-              <a href="celebrity-detail.html">{{ item.name }}</a>
+              <router :to="`/credit/detail/${item.id}`">{{ item.name }}</router>
             </h3>
             <p>
               {{ credits.overview }}
@@ -41,7 +41,7 @@ export default {
   async created() {
     const credit = await axios({
       method: "get",
-      url: `https://api.themoviedb.org/3/credit/${this.item.credit_id}?api_key=0bb0b51dbb47771a2b73398672aac6cf`,
+      url: `https://api.themoviedb.org/3/credit/${this.item.credit_id}?api_key=0bb0b51dbb47771a2b73398672aac6cf&language=ko`,
     });
     this.credits = credit.data.media;
     console.log(credit.data.media.overview);
