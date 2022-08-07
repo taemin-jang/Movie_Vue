@@ -88,4 +88,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.mfp-wrap {
+  position: fixed !important;
+}
+</style>
