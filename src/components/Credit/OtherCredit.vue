@@ -4,7 +4,7 @@
       <div class="celeb-container">
         <!-- Celebrity Image -->
         <div class="celebrity-image">
-          <router-link :to="`/credit/detail/${item.id}`">
+          <router-link :to="`/credit/detail/${item.credit_id}`">
             <img
               :src="`https://image.tmdb.org/t/p/w300/${item.profile_path}`"
               alt=""
@@ -16,7 +16,9 @@
         <div class="celebrity-content">
           <div class="inner">
             <h3 class="title">
-              <router :to="`/credit/detail/${item.id}`">{{ item.name }}</router>
+              <router-link :to="`/credit/detail/${item.credit_id}`">{{
+                item.name
+              }}</router-link>
             </h3>
             <p>
               {{ credits.overview }}
@@ -34,17 +36,19 @@ export default {
   data() {
     return {
       credits: [],
+      controlItem: [],
     };
   },
   props: ["item"],
   mounted() {},
+  methods: {},
   async created() {
+    console.log(this.item);
     const credit = await axios({
       method: "get",
       url: `https://api.themoviedb.org/3/credit/${this.item.credit_id}?api_key=0bb0b51dbb47771a2b73398672aac6cf&language=ko`,
     });
     this.credits = credit.data.media;
-    console.log(credit.data.media.overview);
   },
 };
 </script>

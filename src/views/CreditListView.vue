@@ -59,8 +59,13 @@
           <!-- <div v-for="(num, i) in casts.length" :key="i">
             <CreditDetail :creditId="casts[i].credit_id" />
           </div> -->
-          <div v-for="(item, i) in casts" :key="i">
-            <OtherCredit :item="item" />
+          <div>
+            <div v-for="(item, i) in filterCast" :key="i">
+              <OtherCredit :item="item" />
+            </div>
+            <button @click="chageCast(1)">1번</button>
+            <button @click="chageCast(2)">2번</button>
+            <button @click="chageCast(3)">3번</button>
           </div>
         </div>
       </div>
@@ -74,17 +79,23 @@ import HeaderView from "@/components/HeaderView.vue";
 import FooterView from "@/components/FooterView.vue";
 import OtherCredit from "@/components/Credit/OtherCredit.vue";
 import axios from "axios";
+// import carousel from "vue-owl-carousel";
 export default {
   components: {
     HeaderView,
     FooterView,
     OtherCredit,
+    // carousel,
   },
   data() {
     return {
       casts: [],
+      filterCast: [],
       castsDetail: [],
       modalShowValue: false,
+      startNum: 0,
+      endNum: 6,
+      pageNum: 1,
     };
   },
   async mounted() {
@@ -113,6 +124,31 @@ export default {
         return "Non";
       }
     },
+    chageCast(num) {
+      this.startNum = 0;
+      this.endNum = 6;
+      console.log(num + "번 클릭");
+      console.log(this.casts.length);
+      if (num === 0) {
+        console.log(this.startNum + "과 " + this.endNum);
+        this.filterCast = this.casts.filter(
+          (v, j) => j < this.endNum && j >= this.startNum
+        );
+        return this.filterCast;
+      } else {
+        for (let i = 1; i < this.casts.length / 6; i++) {
+          if (num === i) {
+            this.startNum = this.startNum + 6 * i;
+            this.endNum = this.endNum + 6 * i;
+            this.filterCast = this.casts.filter(
+              (v, j) => j < this.endNum && j >= this.startNum
+            );
+            console.log(this.startNum + "과 " + this.endNum);
+            return this.filterCast;
+          }
+        }
+      }
+    },
     async castText(i) {
       try {
         const castDetail = await axios({
@@ -131,7 +167,14 @@ export default {
       method: "get",
       url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/credits?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
     });
-    this.casts = cast.data.cast.filter((v, i) => i < 6);
+    this.casts = cast.data.cast.filter(
+      (v, i) =>
+        i < (cast.data.cast.length / 2 < 40 ? cast.data.cast.length : 35)
+    );
+    this.chageCast(0);
+    // this.casts = cast.data.cast.filter(
+    //   (v, i) => i < this.endNum && i > this.startNum
+    // );
     console.log(this.casts);
   },
 };
