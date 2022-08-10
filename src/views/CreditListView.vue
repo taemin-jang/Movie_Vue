@@ -25,43 +25,52 @@
           <div class="col-md-6">
             <!-- Layout Switcher -->
             <div class="layout-switcher">
-              <a href="celebrities-list.html" class="list active"
+              <a class="list" @click="showLayout" :class="{ active: showList }"
                 ><i class="fa fa-align-justify"></i
               ></a>
-              <a href="celebrities-grid.html" class="grid"
+              <a class="grid" @click="showLayout" :class="{ active: showGrid }"
                 ><i class="fa fa-th"></i
               ></a>
             </div>
           </div>
-
-          <div class="col-md-6">
-            <!-- Sort by -->
-            <div class="sort-by">
-              <div class="sort-by-select">
-                <select class="chosen-select-no-single">
-                  <option>Default Order</option>
-                  <option>Featured</option>
-                  <option>Top Viewed</option>
-                  <option>Top Rated</option>
-                  <option>Newest</option>
-                  <option>Oldest</option>
-                </select>
-              </div>
-            </div>
-            <!-- Sort by / End -->
-          </div>
         </div>
-        <!-- End of Filters -->
 
         <!-- Start of Celebrities List -->
-        <div class="row">
-          <!-- Celebrity List Item -->
-          <!-- <div v-for="(num, i) in casts.length" :key="i">
-            <CreditDetail :creditId="casts[i].credit_id" />
-          </div> -->
-          <div>
-            <div v-for="(item, i) in filterCast" :key="i">
-              <OtherCredit :item="item" />
+        <div class="list">
+          <div class="row" :class="{ hidden: showGrid }">
+            <div>
+              <div v-for="(item, i) in filterCast" :key="i">
+                <OtherCredit :item="item" />
+              </div>
+              <div class="layout-switcher buttonPage">
+                <span
+                  v-for="(num, i) in parseInt(casts.length / 6)"
+                  :key="'page' + i"
+                >
+                  <a @click="chageCast(i)">{{ i + 1 }}</a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="show" :class="{ hidden: showList }">
+            <div class="row">
+              <div>
+                <div v-for="(item, i) in filterCast" :key="i">
+                  <div v-if="i < 3">
+                    <OtherCredit :item="item" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div v-for="(item, i) in filterCast" :key="i">
+                  <div v-if="i < 6 && i >= 3">
+                    <OtherCredit :item="item" />
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="layout-switcher buttonPage">
               <span
@@ -101,6 +110,8 @@ export default {
       startNum: 0,
       endNum: 6,
       pageNum: 1,
+      showList: true,
+      showGrid: false,
     };
   },
   async mounted() {
@@ -154,6 +165,20 @@ export default {
         }
       }
     },
+    showLayout(event) {
+      console.log(event.target._prevClass);
+      if (
+        event.target._prevClass === "list active" ||
+        event.target._prevClass === "list" ||
+        event.target._prevClass === "fa fa-align-justify"
+      ) {
+        this.showList = true;
+        this.showGrid = false;
+      } else {
+        this.showList = false;
+        this.showGrid = true;
+      }
+    },
     async castText(i) {
       try {
         const castDetail = await axios({
@@ -189,5 +214,25 @@ export default {
 .buttonPage {
   display: flex;
   justify-content: center;
+}
+
+.list div.row {
+  display: block;
+}
+
+.list div.hidden {
+  display: none;
+}
+
+.gird div.show {
+  display: block;
+}
+
+.gird div.show + .grid div.row {
+  flex-wrap: nowrap;
+}
+
+.grid div.hidden {
+  display: none;
 }
 </style>
