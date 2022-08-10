@@ -36,8 +36,8 @@
         </div>
 
         <!-- Start of Celebrities List -->
-        <div class="list">
-          <div class="row" :class="{ hidden: showGrid }">
+        <div class="list" :class="{ hidden: showGrid }">
+          <div class="row">
             <div>
               <div v-for="(item, i) in filterCast" :key="i">
                 <OtherCredit :item="item" />
@@ -54,8 +54,8 @@
           </div>
         </div>
 
-        <div class="grid">
-          <div class="show" :class="{ hidden: showList }">
+        <div class="grid" :class="{ hidden: showList }">
+          <div class="show">
             <div class="row">
               <div>
                 <div v-for="(item, i) in filterCast" :key="i">
@@ -216,23 +216,23 @@ export default {
   justify-content: center;
 }
 
-.list div.row {
+div.list {
   display: block;
 }
 
-.list div.hidden {
+div.list.hidden {
   display: none;
 }
 
-.gird div.show {
+div.gird {
   display: block;
 }
 
-.gird div.show + .grid div.row {
+.show div.row {
   flex-wrap: nowrap;
 }
 
-.grid div.hidden {
+div.grid.hidden {
   display: none;
 }
 </style>
