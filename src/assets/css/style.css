@@ -3079,7 +3079,7 @@ form.mailchimp .btn {
 
 .page-header {
   position: relative;
-  padding: 50px 0;
+  padding: 100px 0px 50px 0px;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -5684,3 +5684,80 @@ main .col-md-12:last-of-type .movie-list-2 {
   float: right;
   opacity: 0.7;
 }
+
+/********************** 11. Add Etc ************************/
+
+/* .tp-caption {
+}
+
+.tp-caption p {
+  color: #000;
+}
+
+.forcefullwidth_wrapper_tp_banner{
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.rev-slider-wrapper .fullwidthbanner-container .overlay-gradient{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  position: absolute;
+  overflow: visible;
+  width: 943px;
+  left: 0px;
+}
+
+.rev_slider .fullwidthabanner .revslider-initialised .tp-simpleresponsive .rev_redraw_on_blurfocus{
+  max-height: 700px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 665px;
+}
+
+.tp-revslider-mainul{
+  visibility: visible;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+}
+
+.tp-revslider-slidesli .active-revslide{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 20;
+  visibility: inherit;
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.slotholder{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: translate3d(0px, 0px, 0px);
+  visibility: inherit;
+  opacity: 1;
+}
+
+.tp-bgimg .defaultimg {
+  background-repeat: no-repeat;
+  background-image: url("@/assets/images/posters/movie-collection.jpg");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  visibility: inherit;
+  z-index: 20;
+} */

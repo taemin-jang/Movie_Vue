@@ -63,9 +63,14 @@
             <div v-for="(item, i) in filterCast" :key="i">
               <OtherCredit :item="item" />
             </div>
-            <button @click="chageCast(1)">1번</button>
-            <button @click="chageCast(2)">2번</button>
-            <button @click="chageCast(3)">3번</button>
+            <div class="layout-switcher buttonPage">
+              <span
+                v-for="(num, i) in parseInt(casts.length / 6)"
+                :key="'page' + i"
+              >
+                <a @click="chageCast(i)">{{ i + 1 }}</a>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -180,4 +185,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.buttonPage {
+  display: flex;
+  justify-content: center;
+}
+</style>
