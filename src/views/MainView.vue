@@ -46,7 +46,7 @@
                       <!-- Buttons -->
                       <div class="buttons">
                         <a
-                          href="#"
+                          href="javascript:void(0)"
                           data-original-title="Rate"
                           data-toggle="tooltip"
                           data-placement="bottom"
@@ -56,7 +56,7 @@
                         </a>
 
                         <a
-                          href="#"
+                          href="javascript:void(0)"
                           data-original-title="Share"
                           data-toggle="tooltip"
                           data-placement="bottom"
@@ -137,11 +137,8 @@
           <!-- Start of row -->
           <div class="row justify-content-center">
             <div class="col-md-7 text-center">
-              <h2 class="title">Latest Movies & TV Shows</h2>
-              <h6 class="subtitle">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam nonummy consectetuer adipiscing.
-              </h6>
+              <h2 class="title">최신 영화</h2>
+              <h6 class="subtitle">현재 방영중인 영화 목록입니다.</h6>
             </div>
           </div>
           <!-- End of row -->
@@ -178,7 +175,7 @@
                       <!-- Play Button -->
                       <div class="play-btn latest">
                         <a
-                          href="#"
+                          href="javascript:void(0)"
                           class="play-video"
                           @click="videoShow(i, 'latest')"
                         >
@@ -228,17 +225,13 @@
       <!-- =============== END OF LATEST RELEASES SECTION =============== -->
 
       <!-- =============== START OF UPCOMING MOVIES SECTION =============== -->
-      <section
-        class="upcoming-movies parallax ptb100"
-        data-background="../assets/images/posters/movie-collection.jpg"
-        data-color="#3e4555"
-        data-color-opacity="0.95"
-      >
+      <section class="upcoming-movies parallax ptb100">
+        <div class="parallax-overlay"></div>
         <div class="container">
           <!-- Start of row -->
           <div class="row justify-content-center">
             <div class="col-md-7 text-center">
-              <h2 class="title text-white">Upcoming Movies & TV Shows</h2>
+              <h2 class="title text-white">개봉 예정인 영화</h2>
             </div>
           </div>
           <!-- End of row -->
@@ -267,7 +260,7 @@
                   <!-- Start of Buttons -->
                   <div class="buttons upcoming">
                     <a
-                      href="#"
+                      href="javascript:void(0)"
                       class="play-video"
                       @click="videoShow(0, 'upcoming')"
                     >
@@ -284,7 +277,7 @@
                       }}</router-link>
                     </h4>
                     <span class="released"
-                      >Release Date:
+                      >개봉일:
                       {{ upComingRand(0, "date") }}
                     </span>
                   </div>
@@ -313,7 +306,7 @@
                   <!-- Start of Buttons -->
                   <div class="buttons upcoming a">
                     <a
-                      href="#"
+                      href="javascript:void(0)"
                       class="play-video"
                       @click="videoShow(1, 'upcoming')"
                     >
@@ -351,7 +344,7 @@
                   <!-- Start of Buttons -->
                   <div class="buttons upcoming">
                     <a
-                      href="#"
+                      href="javascript:void(0)"
                       class="play-video"
                       @click="videoShow(2, 'upcoming')"
                     >
@@ -419,7 +412,9 @@
                       <li>Desktop Only</li>
                       <li>Limited Support</li>
                     </ul>
-                    <a class="btn btn-main btn-effect mt30" href="#"
+                    <a
+                      class="btn btn-main btn-effect mt30"
+                      href="javascript:void(0)"
                       >Get Started</a
                     >
                   </div>
@@ -445,7 +440,9 @@
                       <li>TV & Desktop</li>
                       <li>24/7 Support</li>
                     </ul>
-                    <a class="btn btn-main btn-effect mt30" href="#"
+                    <a
+                      class="btn btn-main btn-effect mt30"
+                      href="javascript:void(0)"
                       >Get Started</a
                     >
                   </div>
@@ -470,7 +467,9 @@
                       <li>Any Device</li>
                       <li>24/7 Support</li>
                     </ul>
-                    <a class="btn btn-main btn-effect mt30" href="#"
+                    <a
+                      class="btn btn-main btn-effect mt30"
+                      href="javascript:void(0)"
                       >Get Started</a
                     >
                   </div>
@@ -545,7 +544,9 @@
                       voluptatem accusantium doloremque laudantium, totam rem
                       aperiam, eaque ipsa quae ab illo inventore veritatis...
                     </p>
-                    <a href="#" class="btn btn-main btn-effect">read more</a>
+                    <a href="javascript:void(0)" class="btn btn-main btn-effect"
+                      >read more</a
+                    >
                   </div>
                 </div>
               </div>
@@ -595,7 +596,9 @@
                       voluptatem accusantium doloremque laudantium, totam rem
                       aperiam, eaque ipsa quae ab illo inventore veritatis...
                     </p>
-                    <a href="#" class="btn btn-main btn-effect">read more</a>
+                    <a href="javascript:void(0)" class="btn btn-main btn-effect"
+                      >read more</a
+                    >
                   </div>
                 </div>
               </div>
@@ -645,7 +648,9 @@
                       voluptatem accusantium doloremque laudantium, totam rem
                       aperiam, eaque ipsa quae ab illo inventore veritatis...
                     </p>
-                    <a href="#" class="btn btn-main btn-effect">read more</a>
+                    <a href="javascript:void(0)" class="btn btn-main btn-effect"
+                      >read more</a
+                    >
                   </div>
                 </div>
               </div>
@@ -782,7 +787,13 @@ export default {
             // v-if문 걸어논 곳은 dom 접근이 안되나여??
             //document.querySelector(".poster img").style.height = "31.7vh";
             //console.log(document.querySelector(".plz .poster"));
-            return this.upComing.upComing[this.i + e].poster_path;
+            this.i =
+              Math.floor(Math.random() * 11) !== this.i
+                ? this.i
+                : Math.floor(Math.random() * 11);
+            return this.upComingRand(e, str) !== null
+              ? this.upComingRand(e, str)
+              : this.upComingRand(e, str);
           }
         case "date":
           return this.upComing.upComing[this.i + e].release_date;
@@ -848,4 +859,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.upcoming-movies {
+  background: url("@/assets/images/posters/movie-collection.jpg");
+  background-attachment: fixed;
+  background-color: rgb(62, 69, 85);
+  opacity: 0.95;
+}
+</style>
