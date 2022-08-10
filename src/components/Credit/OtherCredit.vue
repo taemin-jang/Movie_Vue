@@ -5,10 +5,7 @@
         <!-- Celebrity Image -->
         <div class="celebrity-image">
           <router-link :to="`/credit/detail/${item.credit_id}`">
-            <img
-              :src="`https://image.tmdb.org/t/p/w300/${item.profile_path}`"
-              alt=""
-            />
+            <img :src="`${getImg()}`" alt="" />
           </router-link>
         </div>
 
@@ -41,7 +38,15 @@ export default {
   },
   props: ["item"],
   mounted() {},
-  methods: {},
+  methods: {
+    getImg() {
+      if (this.item.profile_path !== null) {
+        return `https://image.tmdb.org/t/p/w300/${this.item.profile_path}`;
+      } else {
+        return "https://dummyimage.com/300x450/d6d6d6/ffffff.png&text=Not+Image";
+      }
+    },
+  },
   async created() {
     console.log(this.item);
     const credit = await axios({
