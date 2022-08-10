@@ -158,7 +158,7 @@
           <!-- === Start of Sliding Item 1 === -->
           <div v-for="(items, i) in movieList.nowPlay" :key="i">
             <div class="item">
-              <div class="movie-box-3" style="height: 685px">
+              <div class="movie-box-3">
                 <div class="listing-container">
                   <!-- Movie List Image -->
                   <div class="listing-image">
@@ -203,7 +203,7 @@
                         </div>
                       </div>
 
-                      <p>
+                      <p class="line-clamp">
                         {{ items.overview }}
                       </p>
 
@@ -865,5 +865,12 @@ export default {
   background-attachment: fixed;
   background-color: rgb(62, 69, 85);
   opacity: 0.95;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

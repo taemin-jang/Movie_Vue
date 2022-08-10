@@ -17,7 +17,7 @@
                 item.name
               }}</router-link>
             </h3>
-            <p>
+            <p class="line-clamp">
               {{ credits.overview }}
             </p>
           </div>
@@ -59,4 +59,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
