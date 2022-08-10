@@ -43,6 +43,7 @@ export default {
       if (this.item.profile_path !== null) {
         return `https://image.tmdb.org/t/p/w300/${this.item.profile_path}`;
       } else {
+        //이미지 null인경우 빈 이미지 추가
         return "https://dummyimage.com/300x450/d6d6d6/ffffff.png&text=Not+Image";
       }
     },

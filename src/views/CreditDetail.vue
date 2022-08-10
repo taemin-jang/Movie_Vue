@@ -18,10 +18,7 @@
         <div class="row">
           <div class="col-lg-4 col-12">
             <div class="celeb-img">
-              <img
-                :src="`https://image.tmdb.org/t/p/w300/${credits.person?.profile_path}`"
-                alt=""
-              />
+              <img :src="`${getImg()}`" alt="" />
             </div>
           </div>
 
@@ -49,6 +46,16 @@ export default {
       credits: [],
       personId: 0,
     };
+  },
+  methods: {
+    getImg() {
+      if (this.credits.person?.profile_path !== null) {
+        return `https://image.tmdb.org/t/p/w300/${this.credits.person?.profile_path}`;
+      } else {
+        //이미지 null인경우 빈 이미지 추가
+        return "https://dummyimage.com/300x450/d6d6d6/ffffff.png&text=Not+Image";
+      }
+    },
   },
   async created() {
     const credit = await axios({
