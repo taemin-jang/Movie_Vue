@@ -7,7 +7,7 @@
     <div
       class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-fade mfp-ready"
       tabindex="-1"
-      :style="`height: 969px; position: absolute; ${moveTop()}`"
+      :style="` position: absolute;`"
     >
       <div class="mfp-container mfp-iframe-holder">
         <div class="mfp-content">
@@ -51,12 +51,6 @@ export default {
         return "";
       },
     },
-    top: {
-      type: String,
-      default() {
-        return "";
-      },
-    },
   },
   methods: {
     displayed() {
@@ -64,20 +58,6 @@ export default {
         return "display: block";
       } else {
         return "display: none";
-      }
-    },
-    moveTop() {
-      switch (this.top) {
-        case "main":
-          return "top: 0px";
-        case "add":
-          return "top: 1200px";
-        case "recom":
-          return "top: 1900px";
-        case "upcoming":
-          return "top: 1200px";
-        case "latest":
-          return "top: 2200px";
       }
     },
     close(e) {
