@@ -347,6 +347,8 @@
       </div>
       <!-- ===== END OF REV SLIDER WRAPPER ===== -->
     </section>
+
+    <!-- 검색 후 나타내는 페이지 -->
     <section class="top-movies2 search" :class="{ active: showMovie }">
       <div class="container">
         <div class="row" v-if="searchResult.length > 0">

@@ -132,8 +132,13 @@
         <!-- ====== End of Navbar ====== -->
       </div>
       <div class="general-search-wrapper" :class="{ open: openSearchValue }">
-        <form class="general-search" role="search" method="get" action="#">
-          <input type="text" placeholder="Type and hit enter..." />
+        <form class="general-search" :action="`/search/${searchInput}`">
+          <input
+            v-model="searchInput"
+            type="text"
+            placeholder="Type and hit enter..."
+          />
+
           <span
             id="general-search-close"
             class="ti-close toggle-search"
@@ -151,6 +156,7 @@ export default {
   data() {
     return {
       openSearchValue: false,
+      searchInput: "",
     };
   },
   methods: {
@@ -159,10 +165,12 @@ export default {
       this.$emit("show");
     },
     openSearch(event) {
-      console.log(event);
+      event.preventDefault();
+      console.log(this.searchInput);
       if (event.target._prevClass === "fa fa-search") {
         this.openSearchValue = true;
       } else {
+        this.$emit("searchMovie");
         this.openSearchValue = false;
       }
     },
