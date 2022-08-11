@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <!-- ====== Start of Navbar ====== -->
         <nav class="navbar navbar-expand-lg">
-          <router-link class="navbar-brand" to="/">
+          <router-link class="navbar-brand" :to="`/`">
             <!-- INSERT YOUR LOGO HERE -->
             <img
               src="../assets/images/logo.svg"
@@ -46,251 +46,48 @@
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
-                  href="#"
+                  href="javascript:void(0)"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  >Home</a
+                  >영화</a
                 >
 
                 <!-- Dropdown Menu -->
                 <ul class="dropdown-menu">
                   <!-- Menu Item -->
                   <li>
-                    <a class="dropdown-item" href="index.html"
-                      >Home Version 1</a
+                    <a class="dropdown-item" href="blog-list.html"
+                      >현재 상영중인 영화</a
                     >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="index2.html"
-                      >Home Version 2</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="index3.html"
-                      >Home Version 3</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="index4.html"
-                      >Home Version 4</a
-                    >
-                  </li>
-                </ul>
-              </li>
-
-              <!-- Menu Item -->
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  >Pages</a
-                >
-
-                <!-- Dropdown Menu -->
-                <ul class="dropdown-menu">
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="404.html">404 Page</a>
-                  </li>
-
-                  <!-- Divider -->
-                  <li class="divider" role="separator"></li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="celebrities-list.html"
-                      >celebrities list</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="celebrities-grid.html"
-                      >celebrities grid</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="celebrity-detail.html"
-                      >celebrity detail</a
-                    >
-                  </li>
-
-                  <!-- Divider -->
-                  <li class="divider" role="separator"></li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="contact-us.html"
-                      >Contact us</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="coming-soon.html"
-                      >Coming soon</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="pricing.html"
-                      >Pricing Plan</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="login-register.html"
-                      >Login - Register</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="testimonials.html"
-                      >Testimonials</a
-                    >
-                  </li>
-                </ul>
-              </li>
-
-              <!-- Menu Item -->
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  >Movies & TV Shows</a
-                >
-
-                <!-- Dropdown Menu -->
-                <ul class="dropdown-menu">
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="movie-list.html"
-                      >Movie List 1</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="movie-list2.html"
-                      >Movie List 2</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="movie-grid.html"
-                      >Movie Grid 1</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="movie-grid2.html"
-                      >Movie Grid 2</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="movie-grid3.html"
-                      >Movie Grid 3</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="movie-grid4.html"
-                      >Movie Grid 4</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="movie-detail.html"
-                      >Movie Detail</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="movie-detail2.html"
-                      >Movie Detail 2</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="watch-later.html"
-                      >Watch Later</a
-                    >
-                  </li>
-                </ul>
-              </li>
-
-              <!-- Menu Item -->
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  >Blog</a
-                >
-
-                <!-- Dropdown Menu -->
-                <ul class="dropdown-menu">
-                  <!-- Menu Item -->
-                  <li>
-                    <a class="dropdown-item" href="blog-list.html">Blog List</a>
                   </li>
 
                   <!-- Menu Item -->
                   <li>
                     <a class="dropdown-item" href="blog-list-fullwidth.html"
-                      >Blog List Fullwidth</a
+                      >개봉 예정 영화</a
                     >
                   </li>
 
                   <!-- Menu Item -->
                   <li>
                     <a class="dropdown-item" href="blog-post-detail.html"
-                      >Blog Detail</a
-                    >
-                  </li>
-
-                  <!-- Menu Item -->
-                  <li>
-                    <a
-                      class="dropdown-item"
-                      href="blog-post-detail-fullwidth.html"
-                      >Blog Detail Fullwidth</a
+                      >인기 영화</a
                     >
                   </li>
                 </ul>
               </li>
 
               <!-- Menu Item -->
-              <li class="nav-item">
-                <a class="nav-link" href="contact-us.html">Contact us</a>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="javascript:void(0)"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >출연자</a
+                >
               </li>
             </ul>
             <!-- ====== End of Main Menu ====== -->
@@ -299,14 +96,19 @@
             <ul class="navbar-nav extra-nav">
               <!-- Menu Item -->
               <li class="nav-item">
-                <a class="nav-link toggle-search" href="#">
+                <a
+                  class="nav-link toggle-search"
+                  href="javascript:void(0)"
+                  id="general-search-wrapper"
+                  @click="openSearch"
+                >
                   <i class="fa fa-search"></i>
                 </a>
               </li>
 
               <!-- Menu Item -->
               <li class="nav-item notification-wrapper">
-                <a class="nav-link notification" href="#">
+                <a class="nav-link notification" href="javascript:void(0)">
                   <i class="fa fa-globe"></i>
                   <span class="notification-count">2</span>
                 </a>
@@ -329,6 +131,16 @@
         </nav>
         <!-- ====== End of Navbar ====== -->
       </div>
+      <div class="general-search-wrapper" :class="{ open: openSearchValue }">
+        <form class="general-search" role="search" method="get" action="#">
+          <input type="text" placeholder="Type and hit enter..." />
+          <span
+            id="general-search-close"
+            class="ti-close toggle-search"
+            @click="openSearch"
+          ></span>
+        </form>
+      </div>
     </header>
     <!-- =============== END OF HEADER NAVIGATION =============== -->
   </div>
@@ -336,13 +148,26 @@
 
 <script>
 export default {
+  data() {
+    return {
+      openSearchValue: false,
+    };
+  },
   methods: {
     login(e) {
       e.preventDefault();
       this.$emit("show");
     },
+    openSearch(event) {
+      console.log(event);
+      if (event.target._prevClass === "fa fa-search") {
+        this.openSearchValue = true;
+      } else {
+        this.openSearchValue = false;
+      }
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
