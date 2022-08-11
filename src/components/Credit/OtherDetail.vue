@@ -8,10 +8,12 @@
       <ul class="nav tab-links">
         <li class="nav-item">
           <a
-            class="nav-link active"
+            class="nav-link show"
+            :class="{ active: showBio }"
+            @click="showTab"
             id="bio-tab"
             data-toggle="tab"
-            href="#bio"
+            href="javascript:void(0)"
             aria-controls="bio"
             aria-expanded="false"
             >biography</a
@@ -19,10 +21,12 @@
         </li>
         <li class="nav-item">
           <a
-            class="nav-link"
+            class="nav-link show"
+            :class="{ active: !showBio }"
+            @click="showTab"
             id="film-tab"
             data-toggle="tab"
-            href="#filmography"
+            href="javascript:void(0)"
             aria-controls="filmography"
             aria-expanded="false"
             >filmography</a
@@ -33,7 +37,8 @@
       <!-- Tab Content -->
       <div class="tab-content mt70">
         <div
-          class="tab-pane fade active show"
+          class="tab-pane fade show"
+          :class="{ active: showBio }"
           id="bio"
           role="tabpanel"
           aria-labelledby="bio-tab"
@@ -64,23 +69,19 @@
         </div>
 
         <div
-          class="tab-pane fade"
+          class="tab-pane fade show"
+          :class="{ active: !showBio }"
           id="filmography"
           role="tabpanel"
           aria-labelledby="film-tab"
           aria-expanded="false"
         >
           <ul class="film-list">
-            <li><a href="#">Black Cage</a><span class="year">2017</span></li>
-            <li><a href="#">Find Me </a><span class="year">2016</span></li>
-            <li><a href="#">The 19th Life</a><span class="year">2016</span></li>
-            <li><a href="#">Central Hit </a><span class="year">2016</span></li>
-            <li><a href="#">Triple 7 </a><span class="year">2015</span></li>
-            <li>
-              <a href="#">Need for Space </a><span class="year">2014</span>
-            </li>
-            <li>
-              <a href="#">Breaking Mad </a><span class="year">2008-2013</span>
+            <li v-for="(item, i) in discoverMovies" :key="'discover' + i">
+              <router-link :to="`/detail/${item.id}`">{{
+                item.title
+              }}</router-link
+              ><span class="year">{{ item.release_date.slice(0, 4) }}</span>
             </li>
           </ul>
         </div>
@@ -95,6 +96,8 @@ export default {
   data() {
     return {
       personDetails: [],
+      discoverMovies: [],
+      showBio: true,
     };
   },
   props: ["item"],
@@ -107,6 +110,15 @@ export default {
         return "남성";
       }
     },
+    showTab(event) {
+      console.log(event.target.id);
+
+      if (event.target.id === "bio-tab") {
+        this.showBio = true;
+      } else {
+        this.showBio = false;
+      }
+    },
   },
   async updated() {
     if (this.item.person) {
@@ -115,9 +127,25 @@ export default {
         url: `https://api.themoviedb.org/3/person/${this.item.person.id}?api_key=0bb0b51dbb47771a2b73398672aac6cf`,
       });
       this.personDetails = personDetail.data;
+
+      const discoverMovie = await axios({
+        method: "get",
+        url: `https://api.themoviedb.org/3/discover/movie?api_key=3d6c850fedd64a507e51cfb2335f305c&with_cast=${this.item.person.id}&sort_by=release_date.desc&language=ko`,
+      });
+      this.discoverMovies = discoverMovie.data.results.filter((v, i) => i < 10);
     }
   },
+
+  async created() {},
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.tab-pane.fade {
+  display: none;
+}
+
+.tab-pane.fade.active {
+  display: block;
+}
+</style>
