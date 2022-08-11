@@ -3,7 +3,8 @@
     <VideoView
       :display="videoShowValue"
       :movieId="videos"
-      :top="videoTop"
+      :imagePath="imagePath"
+      :isType="isType"
       @close="videoClose"
     />
     <!-- =============== START OF RESPONSIVE - MAIN NAV =============== -->
@@ -68,9 +69,13 @@
                   </li>
                 </ul>
 
-                <a href="#" class="btn btn-main btn-effect">trailer</a>
-                <a href="#" class="btn btn-main btn-effect">watch later</a>
-                <a href="#" class="btn rate-movie"
+                <a href="javascript:void(0)" class="btn btn-main btn-effect"
+                  >trailer</a
+                >
+                <a href="javascript:void(0)" class="btn btn-main btn-effect"
+                  >watch later</a
+                >
+                <a href="javascript:void(0)" class="btn rate-movie"
                   ><i class="icon-heart"></i
                 ></a>
 
@@ -100,7 +105,7 @@
               <div class="inner pr50">
                 <!-- Storyline -->
                 <div class="storyline">
-                  <h3 class="title">Storyline</h3>
+                  <h3 class="title">줄거리</h3>
 
                   <p>
                     {{ movieDetail.detail.overview }}
@@ -109,7 +114,7 @@
 
                 <!-- Media -->
                 <div class="movie-media mt50">
-                  <h3 class="title">Photos & Videos</h3>
+                  <h3 class="title">포스터와 동영상</h3>
 
                   <ul class="image-gallery isotope">
                     <li
@@ -118,9 +123,7 @@
                       :key="i"
                     >
                       <div v-if="i < 6">
-                        <a
-                          :href="`https://image.tmdb.org/t/p/original${movieDetail.images[i].file_path}`"
-                        >
+                        <a href="javascript:void(0)" @click="showImage(i)">
                           <img
                             :src="`https://image.tmdb.org/t/p/w300${movieDetail.images[i].file_path}`"
                             class="img-responsive"
@@ -190,65 +193,28 @@
             <div class="col-lg-4 col-sm-12">
               <div class="sidebar">
                 <!-- Start of Details Widget -->
-                <aside class="widget widget-movie-details">
-                  <h3 class="title">Details</h3>
-
-                  <ul>
-                    <li>
-                      <strong>개봉일: </strong
-                      >{{ movieDetail.detail.release_date }}
-                    </li>
-                    <li>
-                      <strong>감독: </strong
-                      ><a href="#">{{
-                        movieDetail.detail.production_companies[1].name
-                      }}</a>
-                    </li>
-                    <li>
-                      <strong>제작비: </strong
-                      >{{ String(movieDetail.detail.budget).slice(0, 3) }}
-                      million USD
-                    </li>
-                    <li>
-                      <strong>제작한 나라: </strong
-                      >{{
-                        movieDetail.detail.production_companies[0]
-                          .origin_country
-                      }}
-                    </li>
-                    <li>
-                      <strong>언어: </strong
-                      >{{ movieDetail.detail.spoken_languages[0].name }}
-                    </li>
-                    <li>
-                      <strong>제작사: </strong
-                      ><a href="#">{{
-                        movieDetail.detail.production_companies[0].name
-                      }}</a>
-                    </li>
-                  </ul>
-                </aside>
+                <DetailCom :detail="movieDetail.detail" />
                 <!-- End of Details Widget -->
 
                 <!-- Start of Details Widget -->
                 <aside class="widget widget-movie-cast">
-                  <h3 class="title">Cast</h3>
+                  <h3 class="title">출연진</h3>
 
                   <ul class="cast-wrapper">
-                    <li v-for="(item, i) in 5" :key="i">
-                      <a href="celebrity-detail.html">
+                    <li v-for="(item, i) in movieDetail.casts" :key="i">
+                      <router-link :to="`/credit/detail/${item.credit_id}`">
                         <span class="circle-img">
                           <img :src="`${castImg(i)}`" alt="" />
                         </span>
                         <h6 class="name">{{ castName(i) }}</h6>
-                      </a>
+                      </router-link>
                     </li>
                   </ul>
 
-                  <a
-                    href="celebrities-list.html"
+                  <router-link
+                    :to="`/credit/${$route.params.idx}`"
                     class="btn btn-main btn-effect mt20"
-                    >view all</a
+                    >더보기</router-link
                   >
                 </aside>
                 <!-- End of Details Widget -->
@@ -269,7 +235,7 @@
           <!-- Start of row -->
           <div class="row">
             <div class="col-md-8 col-sm-12">
-              <h2 class="title">People who liked this also liked...</h2>
+              <h2 class="title">다른 추천 영화</h2>
             </div>
           </div>
           <!-- End of row -->
@@ -309,7 +275,7 @@
                   <!-- Start of Movie Details -->
                   <div class="movie-details">
                     <h4 class="movie-title" @click="reload">
-                      <router-link :to="`/details/${recomItem.id}`">{{
+                      <router-link :to="`/detail/${recomItem.id}`">{{
                         recomItem.title
                       }}</router-link>
                     </h4>
@@ -357,7 +323,7 @@
 
     <!-- ===== Start of Back to Top Button ===== -->
     <div id="backtotop">
-      <a href="#"></a>
+      <a href="javascript:void(0)"></a>
     </div>
     <!-- ===== End of Back to Top Button ===== -->
   </div>
@@ -367,6 +333,7 @@
 import HeaderView from "@/components/HeaderView.vue";
 import FooterView from "@/components/FooterView.vue";
 import VideoView from "@/components/Main/VideoView.vue";
+import DetailCom from "@/components/Detail/DetailCom.vue";
 import carousel from "vue-owl-carousel";
 import axios from "axios";
 export default {
@@ -374,6 +341,7 @@ export default {
     HeaderView,
     FooterView,
     VideoView,
+    DetailCom,
     carousel,
   },
   data() {
@@ -388,7 +356,8 @@ export default {
       videoShowValue: false,
       videoId: 0,
       videos: "",
-      videoTop: "",
+      imagePath: "",
+      isType: false,
     };
   },
   methods: {
@@ -396,12 +365,22 @@ export default {
       return item[i].name;
     },
     releaseDate(i) {
-      return this.movieDetail.detail.release_date.split("-")[i];
+      return (
+        this.movieDetail.detail?.release_date &&
+        this.movieDetail.detail.release_date.split("-")[i]
+      );
+    },
+
+    showImage(i) {
+      this.imagePath = this.movieDetail.images[i].file_path;
+      this.isType = true;
+      this.videoShowValue = true;
+      console.log("click");
     },
 
     async videoShow(i = 0, str, id = 0) {
       this.videoShowValue = true;
-      console.log(str);
+      this.isType = false;
       if (str === "add") {
         // 추가된 비디오 영상
         const video = await axios({
@@ -410,11 +389,9 @@ export default {
         });
         try {
           this.videos = video.data.results[i].key;
-          this.videoTop = str;
           console.log(this.videos);
         } catch (error) {
           this.videos = "#";
-          this.videoTop = str;
           // this.videoShowValue = false;
           console.log("not find video");
         }
@@ -426,10 +403,8 @@ export default {
         try {
           console.log(this.videos);
           this.videos = recom.data.results[0].key;
-          this.videoTop = str;
         } catch (error) {
           this.videos = "#";
-          this.videoTop = str;
           // this.videoShowValue = false;
           console.log("not find video");
         }
@@ -440,11 +415,9 @@ export default {
         });
         try {
           this.videos = recom.data.results[0].key;
-          this.videoTop = str;
           console.log(this.videos);
         } catch (error) {
           this.videos = "#";
-          this.videoTop = str;
           // this.videoShowValue = false;
           console.log("not find video");
         }
@@ -478,8 +451,7 @@ export default {
           this.movieDetail.recommendations[idx].poster_path
         );
       } catch (error) {
-        console.log("error");
-        return "#";
+        return "https://dummyimage.com/300x450/d6d6d6/ffffff.png&text=Not+Image";
       }
     },
     // 같은 페이지 다른 id 로 이동할 때 페이지 새로고침
@@ -513,15 +485,13 @@ export default {
       method: "get",
       url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/credits?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
     });
-    this.movieDetail.casts = cast.data.cast;
-    console.log(this.movieDetail.casts);
+    this.movieDetail.casts = cast.data.cast.filter((v, i) => i < 5);
 
     const recommendations = await axios({
       method: "get",
       url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/recommendations?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
     });
     this.movieDetail.recommendations = recommendations.data.results;
-    console.log(this.movieDetail.recommendations);
   },
 };
 </script>

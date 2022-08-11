@@ -8,6 +8,7 @@
       class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-fade mfp-ready"
       tabindex="-1"
       :style="` position: absolute;`"
+      :class="{ image: isType }"
     >
       <div class="mfp-container mfp-iframe-holder">
         <div class="mfp-content">
@@ -21,6 +22,24 @@
             ><iframe
               class="mfp-iframe"
               :src="`//www.youtube.com/embed/${movieId}?autoplay=1`"
+              frameborder="0"
+              allowfullscreen=""
+            ></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="mfp-container mfp-iframe-holder-image">
+        <div class="mfp-content">
+          <div class="mfp-iframe-scaler-image">
+            <button
+              title="Close (Esc)"
+              type="button"
+              class="mfp-close"
+              @click="close"
+            ></button>
+            <iframe
+              class="mfp-iframe"
+              :src="` https://image.tmdb.org/t/p/w500/${imagePath}`"
               frameborder="0"
               allowfullscreen=""
             ></iframe>
@@ -51,6 +70,22 @@ export default {
         return "";
       },
     },
+    imagePath: {
+      type: String,
+      default() {
+        return "";
+      },
+    },
+    isType: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
+  },
+  mounted() {},
+  updated() {
+    console.log(this.isType);
   },
   methods: {
     displayed() {
@@ -71,5 +106,21 @@ export default {
 <style lang="scss" scoped>
 .mfp-wrap {
   position: fixed !important;
+}
+
+.mfp-wrap .mfp-iframe-holder-image {
+  display: none;
+}
+
+.mfp-wrap .mfp-iframe-holder {
+  display: block;
+}
+
+.mfp-wrap.image .mfp-iframe-holder-image {
+  display: block;
+}
+
+.mfp-wrap.image .mfp-iframe-holder {
+  display: none;
 }
 </style>
