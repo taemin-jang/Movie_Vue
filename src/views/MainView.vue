@@ -112,19 +112,25 @@
             <div class="row">
               <!-- 1st Count up item -->
               <div class="col-md-4 col-sm-12">
-                <span class="counter-item" data-from="0" data-to="964">0</span>
+                <span class="counter-item movie" data-from="0" data-to="964"
+                  >0</span
+                >
                 <h4>Movies</h4>
               </div>
 
               <!-- 2nd Count up item -->
               <div class="col-md-4 col-sm-12">
-                <span class="counter-item" data-from="0" data-to="743">0</span>
+                <span class="counter-item tv" data-from="0" data-to="743"
+                  >0</span
+                >
                 <h4>TV Shows</h4>
               </div>
 
               <!-- 3rd Count up item -->
               <div class="col-md-4 col-sm-12">
-                <span class="counter-item" data-from="0" data-to="1207">0</span>
+                <span class="counter-item user" data-from="0" data-to="1207"
+                  >0</span
+                >
                 <h4>Users</h4>
               </div>
             </div>
@@ -770,6 +776,13 @@ export default {
       videoId: 0,
       videos: "",
       showMovie: false,
+      totalMovies: [],
+      totalTvs: [],
+      cntMovie: 0,
+      cntTv: 0,
+      raf: null,
+      timestart: null,
+      currentTime: 0,
     };
   },
   mounted() {
@@ -844,6 +857,52 @@ export default {
     hideMain() {
       this.showMovie = true;
     },
+
+    animateMovie(timestamp) {
+      if (!this.timestart) {
+        this.timestart = timestamp;
+      }
+      this.currentTime = timestamp - this.timestart;
+
+      this.cntMovie = this.cntMovie + 1111;
+      document.querySelector(".counter-item.movie").innerHTML = this.cntMovie;
+      if (this.cntMovie < this.totalMovies) {
+        this.raf = requestAnimationFrame(this.animateMovie);
+      } else {
+        cancelAnimationFrame(this.animateMovie);
+      }
+    },
+    animateTv(timestamp) {
+      if (!this.timestart) {
+        this.timestart = timestamp;
+      }
+      this.currentTime = timestamp - this.timestart;
+
+      this.cntTv = this.cntTv + 1111;
+      document.querySelector(".counter-item.tv").innerHTML = this.cntTv;
+      if (this.cntTv < this.totalTvs) {
+        this.raf = requestAnimationFrame(this.animateTv);
+      } else {
+        cancelAnimationFrame(this.animateTv);
+      }
+    },
+    countTotal() {
+      this.animateMovie();
+      this.animateTv();
+
+      // if (str === "tv") {
+      //   while (this.cnt <= this.totalMovies) {
+      //     this.cnt = this.cnt + 1;
+      //     document.querySelector(".counter-item.tv").textContent = this.cnt;
+      //   }
+      // }
+      // if (str === "user") {
+      //   while (this.cnt <= this.totalMovies) {
+      //     this.cnt = this.cnt + 1;
+      //     document.querySelector(".counter-item.user").textContent = this.cnt;
+      //   }
+      // }
+    },
   },
   async created() {
     const popular = await axios({
@@ -869,6 +928,21 @@ export default {
       url: "https://api.themoviedb.org/3/movie/upcoming?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko",
     });
     this.upComing.upComing = upComing.data.results;
+
+    const totalMovie = await axios({
+      method: "get",
+      url: "https://api.themoviedb.org/3/discover/movie?api_key=3d6c850fedd64a507e51cfb2335f305c&language=ko",
+    });
+    this.totalMovies = totalMovie.data.total_results;
+    console.log(this.totalMovies);
+
+    const totalTv = await axios({
+      method: "get",
+      url: "https://api.themoviedb.org/3/discover/tv?api_key=3d6c850fedd64a507e51cfb2335f305c&language=ko",
+    });
+    this.totalTvs = totalTv.data.total_results;
+    console.log(this.totalTvs);
+    this.countTotal();
   },
   computed: {},
 };
@@ -876,7 +950,7 @@ export default {
 
 <style scoped>
 .upcoming-movies {
-  background: url("@/assets/images/posters/movie-collection.jpg");
+  /* background: url("@/assets/images/posters/movie-collection.jpg"); */
   background-attachment: fixed;
   background-color: rgb(62, 69, 85);
   opacity: 0.95;
