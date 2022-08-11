@@ -53,7 +53,7 @@
                   data-bgcolor="undefined"
                   style="
                     background-repeat: no-repeat;
-                    background-image: url('@/assets/images/posters/movie-collection.jpg');
+
                     background-size: cover;
                     background-position: center center;
                     width: 100%;
