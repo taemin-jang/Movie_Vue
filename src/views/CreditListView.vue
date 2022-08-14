@@ -7,10 +7,15 @@
     >
       <div class="container">
         <div class="inner">
-          <h2 class="title">Celebrities List</h2>
+          <h2 class="title">출연진 목록</h2>
           <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li>Celebrities List</li>
+            <li><router-link :to="`/`">메인</router-link></li>
+            <li>
+              <router-link :to="`/detail/${$route.params.idx}`"
+                >상세</router-link
+              >
+            </li>
+            <li>출연진 목록</li>
           </ol>
         </div>
       </div>
@@ -114,14 +119,6 @@ export default {
       showGrid: false,
     };
   },
-  async mounted() {
-    // const castDetail = await axios({
-    //   method: "get",
-    //   url: `https://api.themoviedb.org/3/credit/${this.casts[i].credit_id}?api_key=0bb0b51dbb47771a2b73398672aac6cf`,
-    // });
-    // this.castsDetail = castDetail.data;
-    // console.log(this.castsDetail);
-  },
   methods: {
     modalShow() {
       return (this.modalShowValue = true);
@@ -143,10 +140,7 @@ export default {
     chageCast(num) {
       this.startNum = 0;
       this.endNum = 6;
-      console.log(num + "번 클릭");
-      console.log(this.casts.length);
       if (num === 0) {
-        console.log(this.startNum + "과 " + this.endNum);
         this.filterCast = this.casts.filter(
           (v, j) => j < this.endNum && j >= this.startNum
         );
@@ -159,14 +153,12 @@ export default {
             this.filterCast = this.casts.filter(
               (v, j) => j < this.endNum && j >= this.startNum
             );
-            console.log(this.startNum + "과 " + this.endNum);
             return this.filterCast;
           }
         }
       }
     },
     showLayout(event) {
-      console.log(event.target._prevClass);
       if (
         event.target._prevClass === "list active" ||
         event.target._prevClass === "list" ||
@@ -186,7 +178,6 @@ export default {
           url: `https://api.themoviedb.org/3/credit/${this.casts[i].credit_id}?api_key=0bb0b51dbb47771a2b73398672aac6cf`,
         });
         this.castsDetail = castDetail.data;
-        console.log(this.castsDetail);
       } catch (error) {
         i === 0;
       }
@@ -202,10 +193,6 @@ export default {
         i < (cast.data.cast.length / 2 < 40 ? cast.data.cast.length : 35)
     );
     this.chageCast(0);
-    // this.casts = cast.data.cast.filter(
-    //   (v, i) => i < this.endNum && i > this.startNum
-    // );
-    console.log(this.casts);
   },
 };
 </script>
