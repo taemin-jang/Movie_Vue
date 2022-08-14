@@ -18,7 +18,7 @@ JavaScript와 Vue.js 공부한 내용 복습 및 TMDB API를 활용하여 영화
 ## 프로젝트 URL
 
 [movify](https://superb-entremet-0f24f9.netlify.app/)
-![Alt text](/src/assets/images/page.png)
+(/src/assets/images/page.png)
 
 ## 프로젝트 부분별 기능 소개
 
