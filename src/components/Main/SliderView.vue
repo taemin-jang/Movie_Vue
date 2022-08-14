@@ -442,13 +442,11 @@ export default {
 
       this.showMovie = true;
       this.$emit("hideMain");
-      console.log(this.search);
       const searchApi = await axios({
         method: "get",
         url: `https://api.themoviedb.org/3/search/movie?api_key=3d6c850fedd64a507e51cfb2335f305c&query=${this.search}&language=ko&region=kr`,
       });
       this.searchResult = searchApi.data.results;
-      console.log(this.searchResult);
     },
   },
 };

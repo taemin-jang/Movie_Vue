@@ -69,22 +69,27 @@
                   </li>
                 </ul>
 
-                <a href="javascript:void(0)" class="btn btn-main btn-effect"
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-main btn-effect"
+                  @click="videoShow(0, 'main')"
                   >trailer</a
-                >
-                <a href="javascript:void(0)" class="btn btn-main btn-effect"
-                  >watch later</a
                 >
                 <a href="javascript:void(0)" class="btn rate-movie"
                   ><i class="icon-heart"></i
                 ></a>
 
                 <div class="rating mt10">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
+                  <i
+                    class="fa fa-star"
+                    v-for="(num, i) in count"
+                    :key="'star' + i"
+                  ></i>
+                  <i
+                    class="fa fa-star-o"
+                    v-for="(num, i) in 5 - count"
+                    :key="'no-star' + i"
+                  ></i>
                   <span>{{ movieDetail.detail.vote_count }} Ratings</span>
                 </div>
               </div>
@@ -375,7 +380,6 @@ export default {
       this.imagePath = this.movieDetail.images[i].file_path;
       this.isType = true;
       this.videoShowValue = true;
-      console.log("click");
     },
 
     async videoShow(i = 0, str, id = 0) {
@@ -389,11 +393,8 @@ export default {
         });
         try {
           this.videos = video.data.results[i].key;
-          console.log(this.videos);
         } catch (error) {
           this.videos = "#";
-          // this.videoShowValue = false;
-          console.log("not find video");
         }
       } else if (str === "main") {
         const recom = await axios({
@@ -401,12 +402,9 @@ export default {
           url: `https://api.themoviedb.org/3/movie/${this.$route.params.idx}/videos?api_key=0bb0b51dbb47771a2b73398672aac6cf&region=kr&language=ko`,
         });
         try {
-          console.log(this.videos);
           this.videos = recom.data.results[0].key;
         } catch (error) {
           this.videos = "#";
-          // this.videoShowValue = false;
-          console.log("not find video");
         }
       } else if (str === "recom") {
         const recom = await axios({
@@ -415,11 +413,8 @@ export default {
         });
         try {
           this.videos = recom.data.results[0].key;
-          console.log(this.videos);
         } catch (error) {
           this.videos = "#";
-          // this.videoShowValue = false;
-          console.log("not find video");
         }
       }
     },
@@ -460,7 +455,12 @@ export default {
     },
   },
 
-  computed: {},
+  computed: {
+    count() {
+      //  movieDetail.detail.vote_average / 2
+      return 3;
+    },
+  },
 
   async created() {
     const detail = await axios({

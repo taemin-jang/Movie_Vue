@@ -59,11 +59,17 @@
                       <!-- Rating -->
                       <div class="stars">
                         <div class="rating">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star-o"></i>
+                          <i
+                            class="fa fa-star"
+                            v-for="(num, i) in parseInt(item.vote_average / 2)"
+                            :key="'star' + i"
+                          ></i>
+                          <i
+                            class="fa fa-star-o"
+                            v-for="(num, i) in 5 -
+                            parseInt(item.vote_average / 2)"
+                            :key="'no-star' + i"
+                          ></i>
                         </div>
                       </div>
 
@@ -174,7 +180,6 @@ export default {
         this.videos = video.data.results[0].key;
       } catch (error) {
         this.videoShowValue = false;
-        console.log("not find video");
       }
     },
 
@@ -191,7 +196,6 @@ export default {
       event.preventDefault();
 
       this.showMovie = true;
-      console.log(this.search);
     },
   },
   async created() {
@@ -236,7 +240,6 @@ export default {
       url: `https://api.themoviedb.org/3/search/movie?api_key=3d6c850fedd64a507e51cfb2335f305c&query=${this.$route.params.idx}&language=ko&region=kr`,
     });
     this.searchResult = searchApi.data.results;
-    console.log(this.searchResult);
   },
   computed: {},
 };

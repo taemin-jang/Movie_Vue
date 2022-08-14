@@ -63,9 +63,6 @@ export default {
       url: `https://api.themoviedb.org/3/credit/${this.$route.params.idx}?api_key=0bb0b51dbb47771a2b73398672aac6cf&language=ko`,
     });
     this.credits = credit.data;
-
-    // this.personId = this.credits.person.id;
-    // console.log(this.personId);
   },
 };
 </script>

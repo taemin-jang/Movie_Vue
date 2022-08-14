@@ -84,9 +84,7 @@ export default {
     },
   },
   mounted() {},
-  updated() {
-    console.log(this.isType);
-  },
+  updated() {},
   methods: {
     displayed() {
       if (this.display === true) {

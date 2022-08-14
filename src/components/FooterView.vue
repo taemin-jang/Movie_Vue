@@ -44,7 +44,7 @@
             <!-- End of Widget 2 -->
 
             <!-- Start of Widget 3 -->
-            <div class="col-lg-3 col-md-6 col-sm-12">
+            <!-- <div class="col-lg-3 col-md-6 col-sm-12">
               <div class="widget widget-blog">
                 <h4 class="widget-title">latest news</h4>
 
@@ -60,7 +60,7 @@
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> -->
             <!-- End of Widget 3 -->
 
             <!-- Start of Widget 4 -->

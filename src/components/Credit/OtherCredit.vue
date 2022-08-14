@@ -49,7 +49,6 @@ export default {
     },
   },
   async created() {
-    console.log(this.item);
     const credit = await axios({
       method: "get",
       url: `https://api.themoviedb.org/3/credit/${this.item.credit_id}?api_key=0bb0b51dbb47771a2b73398672aac6cf&language=ko`,

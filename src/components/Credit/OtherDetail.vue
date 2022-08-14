@@ -111,8 +111,6 @@ export default {
       }
     },
     showTab(event) {
-      console.log(event.target.id);
-
       if (event.target.id === "bio-tab") {
         this.showBio = true;
       } else {

@@ -5,15 +5,6 @@
       :movieId="videos"
       @close="videoClose"
     />
-    <!-- =============== START OF PRELOADER =============== -->
-    <!-- <div class="loading">
-      <div class="loading-inner">
-        <div class="loading-effect">
-          <div class="object"></div>
-        </div>
-      </div>
-    </div> -->
-    <!-- =============== END OF PRELOADER =============== -->
     <SignView :display="modalShowValue" @close="modalClose" />
     <!-- =============== START OF RESPONSIVE - MAIN NAV =============== -->
     <nav id="main-mobile-nav"></nav>
@@ -28,6 +19,7 @@
       <SliderView @hideMain="hideMain" />
       <!-- =============== START OF SLIDER REVOLUTION SECTION =============== -->
 
+      <!-- 검색 하면 사라지게 함 -->
       <main class="main" :class="{ active: showMovie }">
         <!-- =============== START OF TOP MOVIES SECTION =============== -->
         <section class="top-movies2">
@@ -70,11 +62,19 @@
                         <!-- Rating -->
                         <div class="stars">
                           <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
+                            <i
+                              class="fa fa-star"
+                              v-for="(num, i) in parseInt(
+                                item.vote_average / 2
+                              )"
+                              :key="'star' + i"
+                            ></i>
+                            <i
+                              class="fa fa-star-o"
+                              v-for="(num, i) in 5 -
+                              parseInt(item.vote_average / 2)"
+                              :key="'no-star' + i"
+                            ></i>
                           </div>
                         </div>
 
@@ -109,28 +109,28 @@
         <!-- =============== END OF COUNTER SECTION =============== -->
         <section class="counter bg-main-gradient ptb50 text-center">
           <div class="container">
-            <div class="row">
+            <div class="row" style="justify-content: space-between">
               <!-- 1st Count up item -->
               <div class="col-md-4 col-sm-12">
-                <span class="counter-item movie" data-from="0" data-to="964"
-                  >0</span
-                >
+                <span class="counter-item movie" data-from="0" data-to="964">{{
+                  movieCount
+                }}</span>
                 <h4>Movies</h4>
               </div>
 
               <!-- 2nd Count up item -->
-              <div class="col-md-4 col-sm-12">
+              <!-- <div class="col-md-4 col-sm-12">
                 <span class="counter-item tv" data-from="0" data-to="743"
                   >0</span
                 >
                 <h4>TV Shows</h4>
-              </div>
+              </div> -->
 
               <!-- 3rd Count up item -->
               <div class="col-md-4 col-sm-12">
-                <span class="counter-item user" data-from="0" data-to="1207"
-                  >0</span
-                >
+                <span class="counter-item user" data-from="0" data-to="1207">{{
+                  userCount
+                }}</span>
                 <h4>Users</h4>
               </div>
             </div>
@@ -217,7 +217,7 @@
                         <router-link
                           :to="`/detail/${items.id}`"
                           class="btn btn-main btn-effect"
-                          >details</router-link
+                          >상세보기</router-link
                         >
                       </div>
                     </div>
@@ -379,349 +379,6 @@
           </div>
         </section>
         <!-- =============== END OF UPCOMING MOVIES SECTION =============== -->
-
-        <!-- =============== END OF BECOME PREMIUM SECTION =============== -->
-        <section class="become-premium3 ptb100">
-          <div class="container">
-            <!-- Start of row -->
-            <div class="row justify-content-center">
-              <div class="col-md-7 text-center">
-                <h2 class="title">Become a Premium Member</h2>
-                <h6 class="subtitle">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                </h6>
-              </div>
-            </div>
-            <!-- End of row -->
-
-            <!-- Start of row -->
-            <div class="row mt80">
-              <div class="col-md-12">
-                <!-- Start of Pricing Table -->
-                <div class="pricing-table-2">
-                  <!-- Pricing Plan 1 -->
-                  <div class="plan">
-                    <!-- Price -->
-                    <div class="plan-price">
-                      <h3>Basic</h3>
-                      <span class="value">Free</span>
-                      <span class="period"
-                        >Try Movify for FREE for the first 7 days, you can
-                        upgrade anytime.</span
-                      >
-                    </div>
-
-                    <!-- Features -->
-                    <div class="plan-features">
-                      <ul>
-                        <li>7 days</li>
-                        <li>720p Resolution</li>
-                        <li>Desktop Only</li>
-                        <li>Limited Support</li>
-                      </ul>
-                      <a
-                        class="btn btn-main btn-effect mt30"
-                        href="javascript:void(0)"
-                        >Get Started</a
-                      >
-                    </div>
-                  </div>
-
-                  <!-- Featured - Pricing Plan 2 -->
-                  <div class="plan featured">
-                    <!-- Price -->
-                    <div class="plan-price">
-                      <h3>Premium</h3>
-                      <span class="value">$19</span>
-                      <span class="period"
-                        >Most wanted subscription package by our
-                        Movifiers.</span
-                      >
-                    </div>
-
-                    <!-- Features -->
-                    <div class="plan-features">
-                      <ul>
-                        <li>1 Month</li>
-                        <li>Full HD</li>
-                        <li>Lifetime Availability</li>
-                        <li>TV & Desktop</li>
-                        <li>24/7 Support</li>
-                      </ul>
-                      <a
-                        class="btn btn-main btn-effect mt30"
-                        href="javascript:void(0)"
-                        >Get Started</a
-                      >
-                    </div>
-                  </div>
-
-                  <!-- Pricing Plan 3 -->
-                  <div class="plan">
-                    <!-- Price -->
-                    <div class="plan-price">
-                      <h3>Cinematic</h3>
-                      <span class="value">$39</span>
-                      <span class="period"
-                        >Watch your favorite movies anywhere and anytime.</span
-                      >
-                    </div>
-
-                    <!-- Features -->
-                    <div class="plan-features">
-                      <ul>
-                        <li>2 Months</li>
-                        <li>Ultra HD</li>
-                        <li>Any Device</li>
-                        <li>24/7 Support</li>
-                      </ul>
-                      <a
-                        class="btn btn-main btn-effect mt30"
-                        href="javascript:void(0)"
-                        >Get Started</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <!-- End of Pricing Table -->
-              </div>
-            </div>
-            <!-- End of row -->
-          </div>
-        </section>
-        <!-- =============== END OF BECOME PREMIUM SECTION =============== -->
-
-        <!-- =============== END OF BLOG SECTION =============== -->
-        <section class="blog bg-light ptb100">
-          <div class="container">
-            <!-- Start of row -->
-            <div class="row justify-content-center">
-              <div class="col-md-7 text-center">
-                <h2 class="title">Latest News</h2>
-                <h6 class="subtitle">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy consectetuer adipiscing.
-                </h6>
-              </div>
-            </div>
-            <!-- End of row -->
-
-            <!-- Start of row -->
-            <div class="row mt50">
-              <!-- 1st Blog Item -->
-              <div class="col-md-4">
-                <div class="bloglist-post-holder shadow-hover">
-                  <!-- Blog Post Thumbnail -->
-                  <a
-                    href="blog-post-detail.html"
-                    class="bloglist-thumb-link hover-link"
-                  >
-                    <div
-                      class="bloglist-post-thumbnail"
-                      style="
-                        background: require(
-                          `../assets/images/blog/bloglist-1.jpg`
-                        );
-                      "
-                    ></div>
-                  </a>
-
-                  <!-- Blog Post Text Wrapper -->
-                  <div class="bloglist-text-wrapper">
-                    <!-- Author Avatar -->
-                    <span class="circle-img bloglist-avatar">
-                      <img
-                        src="../assets/images/user.png"
-                        width="50"
-                        height="50"
-                        alt="author img"
-                      />
-                    </span>
-
-                    <h4 class="bloglist-title">
-                      <a href="blog-post-detail.html">Top 10 Action Movies</a>
-                    </h4>
-
-                    <div class="bloglist-meta">
-                      <i class="fa fa-calendar"></i> 01/02/2018
-                    </div>
-
-                    <div class="bloglist-excerpt">
-                      <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis...
-                      </p>
-                      <a
-                        href="javascript:void(0)"
-                        class="btn btn-main btn-effect"
-                        >read more</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 2nd Blog Item -->
-              <div class="col-md-4">
-                <div class="bloglist-post-holder shadow-hover">
-                  <!-- Blog Post Thumbnail -->
-                  <a
-                    href="blog-post-detail.html"
-                    class="bloglist-thumb-link hover-link"
-                  >
-                    <div
-                      class="bloglist-post-thumbnail"
-                      style="
-                        background: require(
-                          `../assets/images/blog/bloglist-2.jpg`
-                        );
-                      "
-                    ></div>
-                  </a>
-
-                  <!-- Blog Post Text Wrapper -->
-                  <div class="bloglist-text-wrapper">
-                    <!-- Author Avatar -->
-                    <span class="circle-img bloglist-avatar">
-                      <img
-                        src="../assets/images/user.png"
-                        width="50"
-                        height="50"
-                        alt="author img"
-                      />
-                    </span>
-
-                    <h4 class="bloglist-title">
-                      <a href="blog-post-detail.html">Oscar Awards</a>
-                    </h4>
-
-                    <div class="bloglist-meta">
-                      <i class="fa fa-calendar"></i> 01/02/2018
-                    </div>
-
-                    <div class="bloglist-excerpt">
-                      <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis...
-                      </p>
-                      <a
-                        href="javascript:void(0)"
-                        class="btn btn-main btn-effect"
-                        >read more</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 3rd Blog Item -->
-              <div class="col-md-4">
-                <div class="bloglist-post-holder shadow-hover">
-                  <!-- Blog Post Thumbnail -->
-                  <a
-                    href="blog-post-detail.html"
-                    class="bloglist-thumb-link hover-link"
-                  >
-                    <div
-                      class="bloglist-post-thumbnail"
-                      style="
-                        background: require(
-                          `../assets/images/blog/bloglist-3.jpg`
-                        );
-                      "
-                    ></div>
-                  </a>
-
-                  <!-- Blog Post Text Wrapper -->
-                  <div class="bloglist-text-wrapper">
-                    <!-- Author Avatar -->
-                    <span class="circle-img bloglist-avatar">
-                      <img
-                        src="../assets/images/user.png"
-                        width="50"
-                        height="50"
-                        alt="author img"
-                      />
-                    </span>
-
-                    <h4 class="bloglist-title">
-                      <a href="blog-post-detail.html">Top Upcoming Movies</a>
-                    </h4>
-
-                    <div class="bloglist-meta">
-                      <i class="fa fa-calendar"></i> 01/02/2018
-                    </div>
-
-                    <div class="bloglist-excerpt">
-                      <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis...
-                      </p>
-                      <a
-                        href="javascript:void(0)"
-                        class="btn btn-main btn-effect"
-                        >read more</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End of row -->
-          </div>
-        </section>
-        <!-- =============== END OF BLOG SECTION =============== -->
-
-        <!-- =============== END OF SUBSCRIBE SECTION =============== -->
-        <section class="subscribe bg-light2 ptb100">
-          <div class="container">
-            <!-- Start of row -->
-            <div class="row">
-              <div class="col-md-6 col-12">
-                <div class="img-box overlay-gradient mr30">
-                  <img
-                    src="../assets/images/other/landscape.jpg"
-                    alt=""
-                    class="img-resonsive img-shadow"
-                  />
-                </div>
-              </div>
-
-              <div class="col-md-6 col-12 mt50">
-                <h2 class="title">Join Movify Now!</h2>
-                <h6 class="subtitle">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy consectetuer adipiscing.
-                </h6>
-
-                <!-- Subscribe Form -->
-                <form action="#" class="mailchimp mt50" novalidate>
-                  <!-- Form -->
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input
-                        type="email"
-                        name="EMAIL"
-                        class="form-control"
-                        id="mc-email"
-                        placeholder="Your Email"
-                        autocomplete="off"
-                      />
-                      <label for="mc-email"></label>
-                      <button type="submit" class="btn btn-main btn-effect">
-                        Subscribe
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <!-- End of row -->
-          </div>
-        </section>
       </main>
       <!-- =============== END OF SUBSCRIBE SECTION =============== -->
 
@@ -780,9 +437,12 @@ export default {
       totalTvs: [],
       cntMovie: 0,
       cntTv: 0,
+      cntUser: 0,
       raf: null,
       timestart: null,
       currentTime: 0,
+      userCount: 0,
+      movieCount: 0,
     };
   },
   mounted() {
@@ -807,9 +467,6 @@ export default {
           if (this.upComing.upComing[this.i + e].backdrop_path !== null) {
             return this.upComing.upComing[this.i + e].backdrop_path;
           } else {
-            // v-if문 걸어논 곳은 dom 접근이 안되나여??
-            //document.querySelector(".poster img").style.height = "31.7vh";
-            //console.log(document.querySelector(".plz .poster"));
             this.i =
               Math.floor(Math.random() * 11) !== this.i
                 ? this.i
@@ -845,7 +502,6 @@ export default {
         this.videos = video.data.results[0].key;
       } catch (error) {
         this.videoShowValue = false;
-        console.log("not find video");
       }
     },
 
@@ -858,6 +514,7 @@ export default {
       this.showMovie = true;
     },
 
+    // RAF를 이용한 Countup 기능
     animateMovie(timestamp) {
       if (!this.timestart) {
         this.timestart = timestamp;
@@ -865,43 +522,30 @@ export default {
       this.currentTime = timestamp - this.timestart;
 
       this.cntMovie = this.cntMovie + 1111;
-      document.querySelector(".counter-item.movie").innerHTML = this.cntMovie;
+      this.movieCount = this.cntMovie;
       if (this.cntMovie < this.totalMovies) {
         this.raf = requestAnimationFrame(this.animateMovie);
       } else {
         cancelAnimationFrame(this.animateMovie);
       }
     },
-    animateTv(timestamp) {
+    animateUser(timestamp) {
       if (!this.timestart) {
         this.timestart = timestamp;
       }
       this.currentTime = timestamp - this.timestart;
 
-      this.cntTv = this.cntTv + 1111;
-      document.querySelector(".counter-item.tv").innerHTML = this.cntTv;
-      if (this.cntTv < this.totalTvs) {
-        this.raf = requestAnimationFrame(this.animateTv);
+      this.cntUser = this.cntUser + 11;
+      this.userCount = this.cntUser;
+      if (this.cntUser < 1706) {
+        this.raf = requestAnimationFrame(this.animateUser);
       } else {
-        cancelAnimationFrame(this.animateTv);
+        cancelAnimationFrame(this.animateUser);
       }
     },
     countTotal() {
       this.animateMovie();
-      this.animateTv();
-
-      // if (str === "tv") {
-      //   while (this.cnt <= this.totalMovies) {
-      //     this.cnt = this.cnt + 1;
-      //     document.querySelector(".counter-item.tv").textContent = this.cnt;
-      //   }
-      // }
-      // if (str === "user") {
-      //   while (this.cnt <= this.totalMovies) {
-      //     this.cnt = this.cnt + 1;
-      //     document.querySelector(".counter-item.user").textContent = this.cnt;
-      //   }
-      // }
+      this.animateUser();
     },
   },
   async created() {
@@ -934,14 +578,12 @@ export default {
       url: "https://api.themoviedb.org/3/discover/movie?api_key=3d6c850fedd64a507e51cfb2335f305c&language=ko",
     });
     this.totalMovies = totalMovie.data.total_results;
-    console.log(this.totalMovies);
 
     const totalTv = await axios({
       method: "get",
       url: "https://api.themoviedb.org/3/discover/tv?api_key=3d6c850fedd64a507e51cfb2335f305c&language=ko",
     });
     this.totalTvs = totalTv.data.total_results;
-    console.log(this.totalTvs);
     this.countTotal();
   },
   computed: {},
@@ -950,7 +592,6 @@ export default {
 
 <style scoped>
 .upcoming-movies {
-  /* background: url("@/assets/images/posters/movie-collection.jpg"); */
   background-attachment: fixed;
   background-color: rgb(62, 69, 85);
   opacity: 0.95;
